@@ -6,7 +6,7 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 13:11:12 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/09/22 09:30:51 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/09/23 17:14:00 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,16 @@ void    draw_wall(t_mlx *mlx, t_ray *ray, int r, float distray, float angle_step
         distray = 1;
     // //fish eyes
     distray = cos(30*PI/180-(r*angle_step))*distray;
-    wall_strip_hight = (64/distray)*(((float)HEIGHT/2)/(tan(30*PI/180)));
-    //wall_strip_hight = 64/distray * (WIDTH/2);
+    wall_strip_hight = (BLOCSIZE/distray)*(((float)HEIGHT/2)/(tan(30*PI/180)));
+    //wall_strip_hight = BLOCSIZE/distray * (WIDTH/2);
     float	wall_start = HEIGHT / 2 - (wall_strip_hight / 2);
 	float	wall_end = HEIGHT / 2 + wall_strip_hight / 2;
 	if (wall_start < 0)
 		wall_start = 0;
 	int texter_y;
-	int texter_x = mlx->offset * ((int)(mlx->tile[mlx->side]->width / upscale_map));
+	int texter_x = mlx->offset * ((int)(mlx->tile[mlx->side]->width / BLOCSIZE));
+    if (mlx->side == TOP || mlx->side == RIGHT)
+        texter_x = mlx->tile[mlx->side]->width - texter_x;
     draw_block(mlx->img, 0, wall_start, r, 0x45b3e0ff);
 	while (wall_start < wall_end && wall_start < HEIGHT)
 	{

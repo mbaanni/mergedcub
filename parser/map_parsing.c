@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtaib <mtaib@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 14:58:52 by mtaib             #+#    #+#             */
-/*   Updated: 2023/09/21 17:37:00 by mtaib            ###   ########.fr       */
+/*   Updated: 2023/09/23 11:03:11 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,8 @@ int		checkChars(char **map)
 		{
 			if (ft_strchr("NSEW", map[i][j]))
 			{
-				get_player()->x = j * 64;
-				get_player()->y = i * 64;
+				get_player()->x = j * BLOCSIZE;
+				get_player()->y = i * BLOCSIZE;
 				c = map[i][j];
 				dup++;
 				map[i][j] = '0';
@@ -169,15 +169,14 @@ int		handleMap(int	fd)
 	if (checkMapErrors(getType()->map))
 		return (1);
 	
-	// int		i;
-	// char	**map;
+	int		i;
+	char	**map;
 
-	// map = getType()->map;
-	// i = -1;
-	// while (map[++i])
-	// {
-	// 	printf("%s\n",map[i]);
-	// }
+	map = getType()->map;
+	i = -1;
+	while (map[++i])
+		printf("%s\n",map[i]);
+	printf("x: %d    y:%d\n",getType()->max_x, getType()->max_y);
 	return (0);
 }
 

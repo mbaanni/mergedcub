@@ -6,7 +6,7 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 10:00:26 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/09/22 10:05:39 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/09/23 12:17:50 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,15 @@ void    dor_click(mlx_key_data_t key, void *ptr)
     t_mlx * mlx = (t_mlx *) ptr;
     if (key.key == MLX_KEY_E && mlx_is_key_down(mlx->mlx, key.key))
     {
-        if (mlx->map[(int)((mlx->movey + sin(mlx->angle)*upscale_map)/upscale_map)][(int)((mlx->movex + cos(mlx->angle)*upscale_map)/upscale_map)] == 'C')
+        if (mlx->map[(int)((mlx->movey + sin(mlx->angle)*BLOCSIZE)/BLOCSIZE)][(int)((mlx->movex + cos(mlx->angle)*BLOCSIZE)/BLOCSIZE)] == 'C')
 		{
         	mlx->start = 1;
-            mlx->map[(int)((mlx->movey + sin(mlx->angle)*upscale_map)/upscale_map)][(int)((mlx->movex+ cos(mlx->angle)*upscale_map)/upscale_map)] = 'O';
+            mlx->map[(int)((mlx->movey + sin(mlx->angle)*BLOCSIZE)/BLOCSIZE)][(int)((mlx->movex+ cos(mlx->angle)*BLOCSIZE)/BLOCSIZE)] = 'O';
 		}
-        else if (mlx->map[(int)((mlx->movey + sin(mlx->angle)*upscale_map)/upscale_map)][(int)((mlx->movex+ cos(mlx->angle)*upscale_map)/upscale_map)] == 'O')
+        else if (mlx->map[(int)((mlx->movey + sin(mlx->angle)*BLOCSIZE)/BLOCSIZE)][(int)((mlx->movex+ cos(mlx->angle)*BLOCSIZE)/BLOCSIZE)] == 'O')
 		{
         	mlx->start = 1;
-            mlx->map[(int)((mlx->movey + sin(mlx->angle)*upscale_map)/upscale_map)][(int)((mlx->movex+ cos(mlx->angle)*upscale_map)/upscale_map)] = 'C';
+            mlx->map[(int)((mlx->movey + sin(mlx->angle)*BLOCSIZE)/BLOCSIZE)][(int)((mlx->movex+ cos(mlx->angle)*BLOCSIZE)/BLOCSIZE)] = 'C';
 		}
     }
     
@@ -59,18 +59,18 @@ void    dor_click(mlx_key_data_t key, void *ptr)
 
 void	check_next_xy(t_mlx *mlx, int x, int y)
 {
-    int offsetx = 15;
-    int offsety = 15;
+    int offsetx = 8;
+    int offsety = 8;
     if (x < 0)
         offsetx = -offsetx;
     if (y < 0)
         offsety = -offsety;
-    if ((mlx->map[(int)((mlx->movey + y + offsety)/upscale_map)][(int)(mlx->movex/upscale_map)]) != '1' && (mlx->map[(int)((mlx->movey + y + offsety)/upscale_map)][(int)(mlx->movex/upscale_map)]) != 'C')
+    if ((mlx->map[(int)((mlx->movey + y + offsety)/BLOCSIZE)][(int)(mlx->movex/BLOCSIZE)]) != '1' && (mlx->map[(int)((mlx->movey + y + offsety)/BLOCSIZE)][(int)(mlx->movex/BLOCSIZE)]) != 'C')
 	{
         mlx->movey += y;
         mlx->start = 1;
 	}
-    if (mlx->map[(int)(mlx->movey/upscale_map)][(int)((mlx->movex + x + offsetx) /upscale_map)] != '1' && mlx->map[(int)(mlx->movey/upscale_map)][(int)((mlx->movex + x + offsetx) /upscale_map)] != 'C')
+    if (mlx->map[(int)(mlx->movey/BLOCSIZE)][(int)((mlx->movex + x + offsetx) /BLOCSIZE)] != '1' && mlx->map[(int)(mlx->movey/BLOCSIZE)][(int)((mlx->movex + x + offsetx) /BLOCSIZE)] != 'C')
     {
         mlx->movex += x;
         mlx->start = 1;
@@ -89,8 +89,8 @@ void    player_movement(t_mlx *mlx)
 		check_next_xy(mlx, cos(mlx->angle+PI/2)*PLAYER_SPEED,
 			sin(mlx->angle+PI/2)*PLAYER_SPEED);
     else if (mlx_is_key_down(mlx->mlx, MLX_KEY_A))
-		check_next_xy(mlx, -cos(mlx->angle+PI/2)*PLAYER_SPEED,
-			-sin(mlx->angle+PI/2)*PLAYER_SPEED);
+		check_next_xy(mlx, cos(mlx->angle-PI/2)*PLAYER_SPEED,
+			sin(mlx->angle-PI/2)*PLAYER_SPEED);
 }
 
 void	player_angle(t_mlx *mlx)

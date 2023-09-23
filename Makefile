@@ -6,7 +6,7 @@ ifeq ($(OS),Linux)
 else
 	LIBS = $(LIBMLX)/build/libmlx42.a -ldl -lglfw -L"$(HOME)/.brew/Cellar/glfw/3.3.8/lib" -pthread -lm -framework Cocoa -framework OpenGL -framework IOKit
 endif
-CFLAG= -g -fsanitize=address# -Wall -Wextra -Werror -g -fsanitize=address 
+CFLAG= -O3 -Ofast -flto  -g -fsanitize=address# -Wall -Wextra -Werror -g -fsanitize=address 
 HEADER = -I ./includes -I $(LIBMLX)/include
 CC= cc
 SRC= main.c event.c maps.c reading_map.c calculation.c draw_line.c draw_mini_map.c
@@ -17,7 +17,7 @@ DIR_PRC = parser/
 DIR_OBG = obj/
 OBG= $(addprefix $(DIR_OBG), $(SRC:.c=.o))
 OBG+= $(addprefix $(DIR_OBG), $(PRC:.c=.o))
-all : libmlx $(NAME)
+all : $(NAME)
 
 libmlx:
 	@cmake $(LIBMLX) -B $(LIBMLX)/build

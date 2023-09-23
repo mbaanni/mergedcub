@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_elemnts.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtaib <mtaib@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 15:15:14 by mtaib             #+#    #+#             */
-/*   Updated: 2023/09/18 16:14:58 by mtaib            ###   ########.fr       */
+/*   Updated: 2023/09/23 07:33:48 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,10 +191,9 @@ int		checkElements(char	*str)
 	while (arg[i] && arg[i] == ' ')
 	   i++;
 	if (!arg[i] && params[0][0] != 'C' && params[0][0] != 'F')	
-		{
-			
-			return (printError(0));
-		}
+	{		
+		return (printError(0));
+	}
 	else if (!arg[i] && (params[0][0] == 'C' || params[0][0] == 'F'))
 		return (printError(1));
 	params[1] = ft_substr(arg, i , ft_strlen(arg));

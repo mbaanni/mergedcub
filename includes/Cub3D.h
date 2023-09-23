@@ -14,10 +14,9 @@
 #define mini_map_w 1920
 #define mini_map_h 1080
 #define BLOCSIZE 64
-#define upscale_map 64
 #define map_size 0.2
 #define angle_speed 0.05
-#define PLAYER_SPEED 15
+#define PLAYER_SPEED 6
 #define field_of_view 60
 
 enum prespective {
@@ -61,7 +60,6 @@ typedef struct s_player
 {
 	float				x;
 	float				y;
-	// int				
 }	t_player;
 ;
 /*********MAP PARSING*************/
@@ -97,6 +95,7 @@ typedef struct t_ray {
     float   hyblock;
     float   vxblock;
     float   vyblock;
+    int     max;
 }t_ray;
 
 typedef struct t_mlx {
@@ -109,6 +108,7 @@ typedef struct t_mlx {
     int     side;
     void    *mlx_win;
     int start;
+    int max;
     float offset;
     int map_hight;
     int map_width;

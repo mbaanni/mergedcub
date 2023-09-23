@@ -6,7 +6,7 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 10:20:15 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/09/22 09:49:03 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/09/23 17:18:07 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ void	load_mlx(t_mlx *mlx)
 }
 int	load_image(t_mlx *mlx)
 {
-    mlx->tile[0] = mlx_load_png("image/eagle.png");
-    mlx->tile[1] = mlx_load_png("image/greystone.png");
-    mlx->tile[2] = mlx_load_png("image/redbrick.png");
-    mlx->tile[3] = mlx_load_png("image/bluestone.png");
+    mlx->tile[0] = mlx_load_png("image/logo.png");
+    mlx->tile[1] = mlx_load_png("image/logo.png");
+    mlx->tile[2] = mlx_load_png("image/logo.png");
+    mlx->tile[3] = mlx_load_png("image/logo.png");
     mlx->tile[4] = mlx_load_png("image/wood.png");
 	int i = -1;
 	while (++i < 5)
@@ -58,9 +58,13 @@ int main(int ac, char **av)
     mlx.map = getType()->map;
     mlx.movex = get_player()->x;
     mlx.movey = get_player()->y;
-    mlx.map_hight = getType()->max_y*BLOCSIZE;
-    mlx.map_width = getType()->max_x*BLOCSIZE;
-    printf("grid = %d %d\n", mlx.movex, mlx.movey);
+    mlx.movex += BLOCSIZE/2;
+    mlx.movey += BLOCSIZE/2;
+    mlx.map_hight = getType()->max_y;
+    mlx.map_width = getType()->max_x;
+    mlx.max = mlx.map_hight;
+    if (mlx.map_width > mlx.map_hight)
+        mlx.max = mlx.map_width;
     mlx.angle = M_PI;
     if(load_image(&mlx))
     {
@@ -69,7 +73,7 @@ int main(int ac, char **av)
     }
 	load_mlx(&mlx);
     mlx.start = 1;
-    mlx_key_hook(mlx.mlx, dor_click, &mlx);
+    //mlx_key_hook(mlx.mlx, dor_click, &mlx);
     mlx_loop_hook(mlx.mlx, event_win, &mlx);
     mlx_loop_hook(mlx.mlx, drow_player, &mlx);
     mlx_loop(mlx.mlx);
