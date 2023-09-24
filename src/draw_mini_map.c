@@ -6,7 +6,7 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 13:09:20 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/09/23 07:42:44 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/09/24 11:19:16 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,12 @@ int drow_map(t_mlx *mlx)
     {
         if (mlx->map[i][j] == '1')
             put_pixel(0xffffffff, mlx, j*BLOCSIZE, i*BLOCSIZE);
-        if (mlx->map[i][j] == '0')
+        else if (mlx->map[i][j] == '0')
             put_pixel(0x000000ff, mlx, j*BLOCSIZE, i*BLOCSIZE);
+        else if (mlx->map[i][j] == 'O')
+            put_pixel(0x0000ffff, mlx, j*BLOCSIZE, i*BLOCSIZE);
+        else if (mlx->map[i][j] == 'C')
+            put_pixel(0x000fffff, mlx, j*BLOCSIZE, i*BLOCSIZE);
         j++;
 		if ((!mlx->map[i][j] || mlx->map[i][j] == '\n') && mlx->map[i+1])
 		{

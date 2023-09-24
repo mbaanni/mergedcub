@@ -6,7 +6,7 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 13:11:12 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/09/23 17:14:00 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/09/24 17:44:14 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,25 +58,25 @@ void    draw_wall(t_mlx *mlx, t_ray *ray, int r, float distray, float angle_step
         distray = 1;
     // //fish eyes
     distray = cos(30*PI/180-(r*angle_step))*distray;
-    wall_strip_hight = (BLOCSIZE/distray)*(((float)HEIGHT/2)/(tan(30*PI/180)));
-    //wall_strip_hight = BLOCSIZE/distray * (WIDTH/2);
-    float	wall_start = HEIGHT / 2 - (wall_strip_hight / 2);
-	float	wall_end = HEIGHT / 2 + wall_strip_hight / 2;
+    //wall_strip_hight = (BLOCSIZE/distray) * (((float)HEIGHT/2)/(tan(30*PI/180)));
+	wall_strip_hight = BLOCSIZE/distray * 1200;
+    float	wall_start = (HEIGHT / 2) - (wall_strip_hight / 2);
+	float	wall_end = (HEIGHT / 2) + (wall_strip_hight / 2);
 	if (wall_start < 0)
 		wall_start = 0;
 	int texter_y;
 	int texter_x = mlx->offset * ((int)(mlx->tile[mlx->side]->width / BLOCSIZE));
     if (mlx->side == TOP || mlx->side == RIGHT)
         texter_x = mlx->tile[mlx->side]->width - texter_x;
-    draw_block(mlx->img, 0, wall_start, r, 0x45b3e0ff);
+    draw_block(mlx->img, 0, HEIGHT/2, r, 0x45b3e0ff);
 	while (wall_start < wall_end && wall_start < HEIGHT)
 	{
-		texter_y = (1.0-(wall_end - wall_start)/wall_strip_hight)*(mlx->tile[mlx->side]->width);
+		texter_y = (1.0-(wall_end - wall_start)/wall_strip_hight)*(mlx->tile[mlx->side]->height);
 		color = get_color(mlx,texter_y, texter_x);
 		mlx_put_pixel(mlx->img, r, wall_start, color);
 		wall_start++;
     }
-    draw_block(mlx->img, wall_start, HEIGHT, r, 0xffffff00);
+    draw_block(mlx->img, wall_end, HEIGHT, r, 0xffffff00);
 }
 
 void draw_ray(t_mlx *mlx)
@@ -88,6 +88,7 @@ void draw_ray(t_mlx *mlx)
     float	distray;
 
     r = -1;
+    mlx->ray = &ray;
     ra = mlx->angle - ((float)field_of_view / 2) * (PI/180);
     angle_step = (field_of_view * (PI/180)) / WIDTH;
     while(++r < WIDTH)
@@ -96,8 +97,8 @@ void draw_ray(t_mlx *mlx)
 		calculate_horizontal(ra, mlx, &ray);
 		calculate_vertical(ra, mlx, &ray);
 		small_dist(&ray, mlx, &distray);
-		draw_line(mlx->minimap_img, (mlx->movex)*map_size, (mlx->movey)*map_size, (ray.rx)*map_size, (ray.ry)*map_size,0x00FF00FF);
-		draw_wall(mlx, &ray, r, distray, angle_step, ra);
+		//draw_line(mlx->minimap_img, (mlx->movex)*map_size, (mlx->movey)*map_size, (ray.rx)*map_size, (ray.ry)*map_size,0x00ff00FF);
+        draw_wall(mlx, &ray, r, distray, angle_step, ra);
 		ra += angle_step;
     }
 }

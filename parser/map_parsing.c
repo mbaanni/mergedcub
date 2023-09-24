@@ -6,7 +6,7 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 14:58:52 by mtaib             #+#    #+#             */
-/*   Updated: 2023/09/23 11:03:11 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/09/24 10:58:31 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int		is_value(char *str)
 	while (str[++i])
 	{
 		if (str[i] != '1' && str[i] != '0' && str[i] != ' '
-			&& !ft_strchr("NSEW", str[i]))
+			&& !ft_strchr("NSEWCO", str[i])) //added 'CO'
 			{
 				return (1);
 			}
@@ -157,10 +157,9 @@ int		handleMap(int	fd)
 			break ;
 		str = ft_strjoin(str, line);
 		if (line[0] == '\n' && str[0] != '\n')
-			{
-				printf("ook\n");
-				return (printError(16));
-			}
+		{
+			return (printError(16));
+		}
 		// printf("--%d\n",is_value(line));
 	}
 	if (!str || (str[0] == '\n' && !str[1]))

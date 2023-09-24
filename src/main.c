@@ -6,7 +6,7 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 10:20:15 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/09/23 17:18:07 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/09/24 17:15:26 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,6 @@ int main(int ac, char **av)
     if (ac != 2)
         return 1;
 	ft_memset(&mlx, 0, sizeof(mlx));
-    //mlx.map = open_map(av[1]);
-    //parse_map(&mlx);
     if (mapParsing(*(av + 1)))
         return (1);
     mlx.map = getType()->map;
@@ -73,7 +71,7 @@ int main(int ac, char **av)
     }
 	load_mlx(&mlx);
     mlx.start = 1;
-    //mlx_key_hook(mlx.mlx, dor_click, &mlx);
+    mlx_key_hook(mlx.mlx, dor_click, &mlx);
     mlx_loop_hook(mlx.mlx, event_win, &mlx);
     mlx_loop_hook(mlx.mlx, drow_player, &mlx);
     mlx_loop(mlx.mlx);

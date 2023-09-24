@@ -9,7 +9,7 @@ endif
 CFLAG= -O3 -Ofast -flto  -g -fsanitize=address# -Wall -Wextra -Werror -g -fsanitize=address 
 HEADER = -I ./includes -I $(LIBMLX)/include
 CC= cc
-SRC= main.c event.c maps.c reading_map.c calculation.c draw_line.c draw_mini_map.c
+SRC= main.c event.c maps.c calculation.c draw_line.c draw_mini_map.c
 PRC= check_elemnts.c free_elements.c  linkedlist_utils.c map_parsing.c singelton_object.c
 NAME= Cub3d
 DIR_SRC = src/

@@ -6,7 +6,7 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 10:00:26 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/09/23 12:17:50 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/09/24 18:26:52 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,21 +40,26 @@ void    mouse_scroll(t_mlx *mlx)
 
 void    dor_click(mlx_key_data_t key, void *ptr)
 {
-    t_mlx * mlx = (t_mlx *) ptr;
+    t_mlx * mlx;
+    int mx;
+    int my;
+    
+    mlx = (t_mlx *) ptr;
     if (key.key == MLX_KEY_E && mlx_is_key_down(mlx->mlx, key.key))
     {
-        if (mlx->map[(int)((mlx->movey + sin(mlx->angle)*BLOCSIZE)/BLOCSIZE)][(int)((mlx->movex + cos(mlx->angle)*BLOCSIZE)/BLOCSIZE)] == 'C')
+        mx = (mlx->movex + cos(mlx->angle)*BLOCSIZE) / BLOCSIZE;
+        my = ( mlx->movey + sin(mlx->angle)*BLOCSIZE) / BLOCSIZE;
+        if (mlx->map[my][mx] == 'C')
 		{
         	mlx->start = 1;
-            mlx->map[(int)((mlx->movey + sin(mlx->angle)*BLOCSIZE)/BLOCSIZE)][(int)((mlx->movex+ cos(mlx->angle)*BLOCSIZE)/BLOCSIZE)] = 'O';
+            mlx->map[my][mx] = 'O';
 		}
-        else if (mlx->map[(int)((mlx->movey + sin(mlx->angle)*BLOCSIZE)/BLOCSIZE)][(int)((mlx->movex+ cos(mlx->angle)*BLOCSIZE)/BLOCSIZE)] == 'O')
+        else if (mlx->map[my][mx] == 'O')
 		{
         	mlx->start = 1;
-            mlx->map[(int)((mlx->movey + sin(mlx->angle)*BLOCSIZE)/BLOCSIZE)][(int)((mlx->movex+ cos(mlx->angle)*BLOCSIZE)/BLOCSIZE)] = 'C';
+            mlx->map[my][mx] = 'C';
 		}
     }
-    
 }
 
 void	check_next_xy(t_mlx *mlx, int x, int y)
@@ -79,18 +84,23 @@ void	check_next_xy(t_mlx *mlx, int x, int y)
 
 void    player_movement(t_mlx *mlx)
 {
+    int x;
+
+    x = 1;
+    if (mlx_is_key_down(mlx->mlx, MLX_KEY_R))
+        x = 2;
     if (mlx_is_key_down(mlx->mlx, MLX_KEY_W))
-        check_next_xy(mlx, cos(mlx->angle) * PLAYER_SPEED,
-			sin(mlx->angle) * PLAYER_SPEED);
+        check_next_xy(mlx, cos(mlx->angle) * PLAYER_SPEED * x,
+			sin(mlx->angle) * PLAYER_SPEED * x);
     else if (mlx_is_key_down(mlx->mlx, MLX_KEY_S))
-		check_next_xy(mlx, -cos(mlx->angle) * PLAYER_SPEED,
-			-sin(mlx->angle)*PLAYER_SPEED);
+		check_next_xy(mlx, -cos(mlx->angle) * PLAYER_SPEED * x,
+			-sin(mlx->angle)*PLAYER_SPEED * x);
     else if (mlx_is_key_down(mlx->mlx, MLX_KEY_D))
-		check_next_xy(mlx, cos(mlx->angle+PI/2)*PLAYER_SPEED,
-			sin(mlx->angle+PI/2)*PLAYER_SPEED);
+		check_next_xy(mlx, cos(mlx->angle+PI/2)*PLAYER_SPEED * x,
+			sin(mlx->angle+PI/2)*PLAYER_SPEED * x);
     else if (mlx_is_key_down(mlx->mlx, MLX_KEY_A))
-		check_next_xy(mlx, cos(mlx->angle-PI/2)*PLAYER_SPEED,
-			sin(mlx->angle-PI/2)*PLAYER_SPEED);
+		check_next_xy(mlx, cos(mlx->angle-PI/2)*PLAYER_SPEED * x,
+			sin(mlx->angle-PI/2)*PLAYER_SPEED * x);
 }
 
 void	player_angle(t_mlx *mlx)
@@ -123,5 +133,5 @@ void event_win(void *param)
     }
     player_movement(mlx);
     player_angle(mlx);
-    //mouse_scroll(mlx);
+    mouse_scroll(mlx);
 }

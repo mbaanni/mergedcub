@@ -13,7 +13,7 @@
 #define HEIGHT 1080
 #define mini_map_w 1920
 #define mini_map_h 1080
-#define BLOCSIZE 64
+#define BLOCSIZE 32
 #define map_size 0.2
 #define angle_speed 0.05
 #define PLAYER_SPEED 6
@@ -120,11 +120,8 @@ typedef struct t_mlx {
 }   t_mlx;
 
 int     drow_map(t_mlx *mlx);
-void    clean_it(t_mlx *mlx);
-int     parse_map(t_mlx *mlx);
 void    drow_player(void *mlx);
 void    event_win(void *param);
-char    **open_map(char *link);
 int     creat_block(t_mlx *mlx);
 void    dor_click(mlx_key_data_t key, void *ptr);
 int     drow_map(t_mlx *mlx);

@@ -6,7 +6,7 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 12:25:22 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/09/23 16:01:35 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/09/24 17:09:58 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ void	small_dist(t_ray *ray, t_mlx *mlx, float *distray)
         if (ray->hyblock < 0)
             mlx->side = BOTTOM;
     }
-    //if (mlx->map[(int)ray->ry/BLOCSIZE][(int)ray->rx/BLOCSIZE] == 'C')
-    //    mlx->side = DOR;
+    if (mlx->map[(int)ray->ry/BLOCSIZE][(int)ray->rx/BLOCSIZE] == 'C')
+        mlx->side = DOR;
 }
 
 void    calculate_horizontal(float ra, t_mlx *mlx, t_ray *ray)
@@ -52,14 +52,14 @@ void    calculate_horizontal(float ra, t_mlx *mlx, t_ray *ray)
     tang = -tan(ra);
     if (ra > M_PI)
     {
-		ray->hy = (int)((mlx->movey / BLOCSIZE ) * BLOCSIZE ) - 0.01;
+		ray->hy = ((int)(mlx->movey / BLOCSIZE ) * BLOCSIZE) - 0.01;
 		ray->hx = mlx->movex + (mlx->movey - ray->hy)/tang;
 		ray->hyblock = -BLOCSIZE;
 		ray->hxblock = -ray->hyblock/tang;
     }
 	if(ra < M_PI)
 	{
-		ray->hy = (int)((mlx->movey / BLOCSIZE) * BLOCSIZE) + BLOCSIZE;
+		ray->hy = ((int)(mlx->movey / BLOCSIZE) * BLOCSIZE) + BLOCSIZE;
 		ray->hx = mlx->movex + (mlx->movey - ray->hy)/tang;
 		ray->hyblock = BLOCSIZE;
 		ray->hxblock = -ray->hyblock/tang;
@@ -71,7 +71,7 @@ void    calculate_horizontal(float ra, t_mlx *mlx, t_ray *ray)
 		my = ray->hy/BLOCSIZE;
 		if (mx < 0 || mx >= mlx->map_width || my < 0 || my >= mlx->map_hight)
 			break ;
-		if (mlx->map[my][mx] && mlx->map[my][mx] == '1')
+		if (mlx->map[my][mx] && (mlx->map[my][mx] == '1' || mlx->map[my][mx] == 'C'))
 			break;
 		ray->hx = ray->hx + ray->hxblock;
 		ray->hy = ray->hy + ray->hyblock;
@@ -109,7 +109,7 @@ void    calculate_vertical(float ra, t_mlx *mlx, t_ray *ray)
         my = ray->vy/BLOCSIZE;
         if (mx < 0 || mx >= mlx->map_width || my < 0 || my >= mlx->map_hight)
 			break ;
-		if (mlx->map[my][mx] && mlx->map[my][mx] == '1')
+		if (mlx->map[my][mx] && (mlx->map[my][mx] == '1' || mlx->map[my][mx] == 'C'))
 			break;
 		ray->vx = ray->vx + ray->vxblock;
 		ray->vy = ray->vy + ray->vyblock;
