@@ -6,7 +6,7 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 10:20:15 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/09/25 10:12:21 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/09/25 16:21:50 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int main(int ac, char **av)
 	ft_memset(&mlx, 0, sizeof(mlx));
     if (mapParsing(*(av + 1)))
         return (1);
-    exit(0);
     mlx.map = getType()->map;
     mlx.movex = get_player()->x;
     mlx.movey = get_player()->y;
@@ -70,6 +69,8 @@ int main(int ac, char **av)
         write(2, "Failed to load image\n", 21);
 		exit(1);
     }
+    for (int i = 0; mlx.map[i];i++)
+        printf("%s\n", mlx.map[i]);
 	load_mlx(&mlx);
     mlx.start = 1;
     mlx_key_hook(mlx.mlx, dor_click, &mlx);

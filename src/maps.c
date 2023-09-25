@@ -6,7 +6,7 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 13:11:12 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/09/25 10:06:26 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/09/25 17:30:01 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,15 +89,15 @@ void draw_ray(t_mlx *mlx)
 
     r = -1;
     mlx->ray = &ray;
-    ra = mlx->angle - ((float)field_of_view / 2) * (PI/180);
     angle_step = (field_of_view * (PI/180)) / WIDTH;
+    ra = mlx->angle - ((float)field_of_view / 2) * (PI/180) + angle_step * 0.5;
     while(++r < WIDTH)
     {
 		ra = bound_angle(ra);
 		calculate_horizontal(ra, mlx, &ray);
 		calculate_vertical(ra, mlx, &ray);
 		small_dist(&ray, mlx, &distray);
-		//draw_line(mlx->minimap_img, (mlx->movex)*map_size, (mlx->movey)*map_size, (ray.rx)*map_size, (ray.ry)*map_size,0x00ff00FF);
+		draw_line(mlx->minimap_img, (mlx->movex)*map_size, (mlx->movey)*map_size, (ray.rx)*map_size, (ray.ry)*map_size,0x00ff00FF);
         draw_wall(mlx, &ray, r, distray, angle_step, ra);
 		ra += angle_step;
     }
@@ -126,7 +126,7 @@ void    drow_player(void *ptr)
         mlx->txt = mlx_put_string(mlx->mlx, ft_itoa(fps),WIDTH/2,0);
         if (mlx->txt)
             ffps(mlx->mlx,mlx->txt);
-		// drow_map(mlx);
+		drow_map(mlx);
 		draw_ray(mlx);
 		mlx->start = 0;
 	}

@@ -6,12 +6,30 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 12:25:22 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/09/24 17:09:58 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/09/25 17:59:08 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/Cub3D.h"
 #include <stdio.h>
+
+int line_end_n(char *str)
+{
+    int i;
+
+    i = 0;
+    while (str[i] && (str[i] != ' ' || str[i] != '\t'))
+        i++;
+    return (i);
+}
+
+int len_2d(char **str)
+{
+    int i = 0;
+    while (str[i])
+        i++;
+    return i;   
+}
 
 void	small_dist(t_ray *ray, t_mlx *mlx, float *distray)
 {
@@ -47,12 +65,12 @@ void    calculate_horizontal(float ra, t_mlx *mlx, t_ray *ray)
     float   tang;
     int     mx;
     int     my;
-    int x;
+    int     x;
 
     tang = -tan(ra);
     if (ra > M_PI)
     {
-		ray->hy = ((int)(mlx->movey / BLOCSIZE ) * BLOCSIZE) - 0.01;
+		ray->hy = (int)(mlx->movey / BLOCSIZE ) * BLOCSIZE;
 		ray->hx = mlx->movex + (mlx->movey - ray->hy)/tang;
 		ray->hyblock = -BLOCSIZE;
 		ray->hxblock = -ray->hyblock/tang;
@@ -68,9 +86,11 @@ void    calculate_horizontal(float ra, t_mlx *mlx, t_ray *ray)
 	while(x < mlx->max)
 	{
 		mx = ray->hx/BLOCSIZE;
-		my = ray->hy/BLOCSIZE;
-		if (mx < 0 || mx >= mlx->map_width || my < 0 || my >= mlx->map_hight)
+		my = ray->hy/BLOCSIZE - 1 * (ra > M_PI);
+		if (my <= 0 || my >= len_2d(mlx->map) || mx <= 0 || mx >= line_end_n(mlx->map[my]))
 			break ;
+        if (!mlx->map[my] || !mlx->map[my][mx])
+            break;
 		if (mlx->map[my][mx] && (mlx->map[my][mx] == '1' || mlx->map[my][mx] == 'C'))
 			break;
 		ray->hx = ray->hx + ray->hxblock;
@@ -97,7 +117,7 @@ void    calculate_vertical(float ra, t_mlx *mlx, t_ray *ray)
 	
     if (ra > (M_PI/2) && ra < (3*M_PI/2))
     {
-        ray->vx = ((int)(mlx->movex / BLOCSIZE ) * BLOCSIZE ) - 0.001;
+        ray->vx = ((int)(mlx->movex / BLOCSIZE ) * BLOCSIZE );
         ray->vy = mlx->movey + (mlx->movex - ray->vx) * tang;
         ray->vxblock = -BLOCSIZE;
         ray->vyblock = -ray->vxblock*tang;
@@ -105,10 +125,12 @@ void    calculate_vertical(float ra, t_mlx *mlx, t_ray *ray)
     x = 0;
     while (x < mlx->max)
     {
-        mx = ray->vx/BLOCSIZE;
+        mx = ray->vx/BLOCSIZE - 1 * (ra > (M_PI/2) && ra < (3*M_PI/2));
         my = ray->vy/BLOCSIZE;
-        if (mx < 0 || mx >= mlx->map_width || my < 0 || my >= mlx->map_hight)
+        if (my <= 0 || my >= len_2d(mlx->map) || mx <= 0 || mx >= line_end_n(mlx->map[my]))
 			break ;
+        if (!mlx->map[my] || !mlx->map[my][mx])
+            break;
 		if (mlx->map[my][mx] && (mlx->map[my][mx] == '1' || mlx->map[my][mx] == 'C'))
 			break;
 		ray->vx = ray->vx + ray->vxblock;
