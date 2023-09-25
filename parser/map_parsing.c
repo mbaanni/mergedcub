@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mtaib <mtaib@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 14:58:52 by mtaib             #+#    #+#             */
-/*   Updated: 2023/09/25 10:23:54 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/09/25 10:59:48 by mtaib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ int		is_all_value(char *str, char c)
 	int		i;
 	
 	i = 0;
-	while (str[i]) //&& str[i + 1])
+	while (str[i] && str[i + 1]) //&& str[i + 1])
 	{
 		if (str[i] != c)
 			return (0);
@@ -169,24 +169,20 @@ int		handleMap(int	fd)
 			break ;
 		if (line[0] != '\n')
 			str = ft_strjoin(str, line);
-		if ((is_all_value(line, '\n')))
-			//&& str)
+		if (str && line[0] == '\n')
 		{
-	
 			while (1)
 			{
 				line = get_next_line(fd);
 				if (!line)
 					break ;
-				if (is_all_value(line, '\n') || is_all_value(line, ' '))
+				if (line[0] != '\n')
+					str = ft_strjoin(str, line);
+				if (line[0] != '\n' && !is_all_value(line, ' '))
 					return (printError(16));
 			}
+			break ;
 		}
-		// 	return (printError(16));
-		
-		// if (line[0] == '\n' && str && str[0] != '\n')
-		// 	return (printError(16));
-		// printf("--%d\n",is_value(line));
 	}
 	if (!str || (str[0] == '\n' && !str[1]))
 		return (printError(9));
