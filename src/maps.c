@@ -6,7 +6,7 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 13:11:12 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/09/24 17:44:14 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/09/25 10:06:26 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ void    drow_player(void *ptr)
         mlx->txt = mlx_put_string(mlx->mlx, ft_itoa(fps),WIDTH/2,0);
         if (mlx->txt)
             ffps(mlx->mlx,mlx->txt);
-		drow_map(mlx);
+		// drow_map(mlx);
 		draw_ray(mlx);
 		mlx->start = 0;
 	}

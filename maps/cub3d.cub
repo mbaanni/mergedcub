@@ -1,9 +1,10 @@
-NO /home/mtn/Desktop/cub3d1/image/barrel.png
-WE /home/mtn/Desktop/cub3d1/image/bluestone.png
-EA /home/mtn/Desktop/cub3d1/image/eagle.png
-SO /home/mtn/Desktop/cub3d1/image/wood.png
+NO image/barrel.png
+WE image/bluestone.png
+EA image/eagle.png 
+SO image/wood.png
 
-C 10,30,150
+C  10,30,150
+
 F 150,50,250
 
 111111111111111111111111
@@ -16,4 +17,6 @@ F 150,50,250
 110010000000010010000001
 110000000E00000000000001
 100000000000000000000001
+
 111111111111111111111111
+                     

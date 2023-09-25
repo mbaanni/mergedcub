@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_elemnts.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mtaib <mtaib@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 15:15:14 by mtaib             #+#    #+#             */
-/*   Updated: 2023/09/23 07:33:48 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/09/24 20:47:13 by mtaib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int		checkPath(char *path)
 {	
-	void	*ptr;
+	mlx_texture_t	*ptr;
 	
 	ptr = mlx_load_png(path);
 	if (!ptr)
@@ -66,11 +66,10 @@ int		checkDirs(char *str)
 	i = -1;
 	if (countPoint(str) != 2)
 		return (printError(2));
-	
 	while (str[++i])
 		if (!(str[i] >= '0' && str[i] <= '9') 
-			&& str[i] != ',' && str[i] != ' ' && str[i] != '\t'
-			&& str[0] != '-' && str[0] != '+')
+			&& str[i] != ','  && str[0] != '-' 
+			&& str[i] != '+')
 			return (printError(2));
 	i = 0;
 	while(str[i])
@@ -179,11 +178,11 @@ int		checkElements(char	*str)
 	if (str[0] == '\n')
 		return (0);
 	arg = ft_strtrim(str, " \n\t");
-	while (arg[++i])
-		if (arg[i] == ' ') //|| arg[i] == '\t')
-			break ;
-	if (!arg[i])
+	if (!arg[0])
 		return (printError(0));
+	while (arg[++i])
+		if (arg[i] == ' ' || arg[i] == '\t')
+			break ;
 	params = malloc(sizeof(char *) * 3);
 	if (!params)
 		return (1);
@@ -191,30 +190,25 @@ int		checkElements(char	*str)
 	while (arg[i] && arg[i] == ' ')
 	   i++;
 	if (!arg[i] && params[0][0] != 'C' && params[0][0] != 'F')	
-	{		
 		return (printError(0));
-	}
 	else if (!arg[i] && (params[0][0] == 'C' || params[0][0] == 'F'))
 		return (printError(1));
 	params[1] = ft_substr(arg, i , ft_strlen(arg));
 	params[2] = NULL;
 	if (isDirection(params[0]))
 		return (printError(0));
-
 	if (params[0][0] == 'C' || params[0][0] == 'F')
-	{
 		if (checkDirs(params[1]))
+				return (1);
+	if (params[0][0] != 'C' && params[0][0] != 'F')	
+		if (checkPath(params[1]))
 			return (1);
-	}
-	// else if (params[0][0] != 'C' && params[0][0] != 'F')	
-	// 	return (checkPath(params[1]));
 	if (checkDuplicates(getType()->directions, params[0]))
 		return (printError(3));
 	getType()->dirNbs++;
 	lstadd_back(&getType()->directions
 		, lstnew(params[0], params[1]));
 	free(str);
-	// + or - in last 
-	// swap color value 
 	return (0);	
 }
+// when count all dirs and do a duplication , print specific error

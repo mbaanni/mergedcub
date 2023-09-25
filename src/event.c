@@ -6,7 +6,7 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 10:00:26 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/09/24 18:26:52 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/09/25 09:57:41 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,5 +133,5 @@ void event_win(void *param)
     }
     player_movement(mlx);
     player_angle(mlx);
-    mouse_scroll(mlx);
+    //mouse_scroll(mlx);
 }

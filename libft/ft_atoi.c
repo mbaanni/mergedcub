@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mtaib <mtaib@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 18:08:22 by mtaib             #+#    #+#             */
-/*   Updated: 2023/09/16 09:53:54 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/09/24 20:31:03 by mtaib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 
 int	ft_atoi(char *str)
 {
@@ -27,6 +26,8 @@ int	ft_atoi(char *str)
 		if (str[i++] == '-')
 			arb *= -1;
 	res = 0;
+	if (!(str[i] >= '0' && str[i] <= '9'))
+		return (-1);
 	while (str[i] && (str[i] >= '0' && str[i] <= '9'))
 	{
 		res = res * 10 + (str[i] - 48);

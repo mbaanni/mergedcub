@@ -6,7 +6,7 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 10:20:15 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/09/24 17:15:26 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/09/25 10:12:21 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int main(int ac, char **av)
 	ft_memset(&mlx, 0, sizeof(mlx));
     if (mapParsing(*(av + 1)))
         return (1);
+    exit(0);
     mlx.map = getType()->map;
     mlx.movex = get_player()->x;
     mlx.movey = get_player()->y;

@@ -6,7 +6,7 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 14:58:52 by mtaib             #+#    #+#             */
-/*   Updated: 2023/09/24 10:58:31 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/09/25 10:23:54 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,19 @@ int		checkMapErrors(char **map)
 	return (0);
 
 }
-
+int		is_all_value(char *str, char c)
+{
+	int		i;
+	
+	i = 0;
+	while (str[i]) //&& str[i + 1])
+	{
+		if (str[i] != c)
+			return (0);
+		i++;
+	}
+	return (1);
+}
 int		handleMap(int	fd)
 {
 	char	*line;
@@ -155,11 +167,25 @@ int		handleMap(int	fd)
 		line = get_next_line(fd);
 		if (!line)
 			break ;
-		str = ft_strjoin(str, line);
-		if (line[0] == '\n' && str[0] != '\n')
+		if (line[0] != '\n')
+			str = ft_strjoin(str, line);
+		if ((is_all_value(line, '\n')))
+			//&& str)
 		{
-			return (printError(16));
+	
+			while (1)
+			{
+				line = get_next_line(fd);
+				if (!line)
+					break ;
+				if (is_all_value(line, '\n') || is_all_value(line, ' '))
+					return (printError(16));
+			}
 		}
+		// 	return (printError(16));
+		
+		// if (line[0] == '\n' && str && str[0] != '\n')
+		// 	return (printError(16));
 		// printf("--%d\n",is_value(line));
 	}
 	if (!str || (str[0] == '\n' && !str[1]))
@@ -167,7 +193,6 @@ int		handleMap(int	fd)
 	getType()->map = ft_split(str, '\n');
 	if (checkMapErrors(getType()->map))
 		return (1);
-	
 	int		i;
 	char	**map;
 
@@ -193,7 +218,7 @@ int		handleDirs(int 	fd)
 				&& !ft_strchr(line, ','))
 			return (printError(12));
 		if (checkElements(line))
-				return (1);
+			return (1);
 		if (getType()->dirNbs == 6)
 		{
 			if (handleMap(fd))
