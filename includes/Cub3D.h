@@ -5,16 +5,14 @@
 #include "../libft/libft.h"
 #include "../libft/get_next_line.h"
 #include <fcntl.h>
-#include <stdio.h> //remove this library
 #include <math.h>
 
 #define PI M_PI
 #define WIDTH 1920
 #define HEIGHT 1080
-#define mini_map_w 1920
-#define mini_map_h 1080
 #define BLOCSIZE 32
-#define map_size 0.2
+#define map_size 1
+#define RADIUS 128
 #define angle_speed 0.05
 #define PLAYER_SPEED 6
 #define field_of_view 60
@@ -34,55 +32,6 @@ enum
     LEFT,
     DOR
 };
-
-typedef struct  s_dirs
-{
-	char	*key;
-	char	*path;
-	struct s_dirs		*next;
-} 	t_dirs;
-
-typedef struct	s_mapInfo
-{
-	t_dirs			*directions;
-	int				dirNbs;
-	char			**map;
-	int				colors[3];
-	int				max_x;
-	int				max_y;
-	float			pa;
-	mlx_t  		    *init;
-    mlx_image_t     *img;
-
-}	t_mapInfo;
-
-typedef struct s_player 
-{
-	float				x;
-	float				y;
-}	t_player;
-;
-/*********MAP PARSING*************/
-
-int				mapParsing(char *str);
-int				checkPath(char *str);
-int				isDirection(char *str);
-int				checkElements(char	*str);
-int				checkDirs(char *str);
-t_mapInfo*		getType(void);
-void	ft_intersection(void *ptr);
-int				printError(int	i);
-void  		    ft_move(void *arg);
-void    		 print_map();
-t_player*		get_player(void);
-/*********************************/
-
-/*********LINKED LIST UTILS*******************/
-
-t_dirs		*lstnew(char	 *key, char *path);
-void		lstadd_back(t_dirs **lst, t_dirs *newnode);
-
-/*********************************************/
 
 typedef struct t_ray {
     float   hx;
@@ -116,18 +65,73 @@ typedef struct t_mlx {
     int movex;
     int movey;
     int color;
+    int F_color;
+    int C_color;
     char **map;
 }   t_mlx;
+typedef struct  s_dirs
+{
+	char	*key;
+	char	*path;
+	struct s_dirs		*next;
+} 	t_dirs;
 
+typedef struct	s_mapInfo
+{
+	t_dirs			*directions;
+	int				dirNbs;
+	char			**map;
+	int				colors[3];
+	int				max_x;
+	int				max_y;
+	float			pa;
+	mlx_t  		    *init;
+    t_mlx *mlx;
+    mlx_image_t     *img;
+
+}	t_mapInfo;
+
+typedef struct s_player 
+{
+	float				x;
+	float				y;
+}	t_player;
+;
+/*********MAP PARSING*************/
+
+int				mapParsing(char *str);
+int				checkPath(char *str);
+int				isDirection(char *str);
+int				checkElements(char	*str);
+int				checkDirs(char *str);
+t_mapInfo*		getType(void);
+void	ft_intersection(void *ptr);
+int				printError(int	i);
+void  		    ft_move(void *arg);
+void    		 print_map();
+t_player*		get_player(void);
+/*********************************/
+
+/*********LINKED LIST UTILS*******************/
+
+t_dirs		*lstnew(char	 *key, char *path);
+void		lstadd_back(t_dirs **lst, t_dirs *newnode);
+
+/*********************************************/
+
+
+void    ft_clean(t_mlx *mlx);
 int     drow_map(t_mlx *mlx);
 void    drow_player(void *mlx);
 void    event_win(void *param);
 int     creat_block(t_mlx *mlx);
 void    dor_click(mlx_key_data_t key, void *ptr);
+void    put_on_minimap(t_mlx *mlx, int x, int y, int color);
 int     drow_map(t_mlx *mlx);
 void    draw_line(mlx_image_t *image, int startx, int starty, int endx, int endy, int color);
 void    calculate_vertical(float ra, t_mlx *mlx, t_ray *ray);
 void    calculate_horizontal(float ra, t_mlx *mlx, t_ray *ray);
+int calculate_dist(int px, int py, int dstx1, int dsty1);
 void	small_dist(t_ray *ray, t_mlx *mlx, float *distray);
 
 #endif

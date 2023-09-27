@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtaib <mtaib@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 14:58:52 by mtaib             #+#    #+#             */
-/*   Updated: 2023/09/25 10:59:48 by mtaib            ###   ########.fr       */
+/*   Updated: 2023/09/27 10:15:31 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int		is_value(char *str)
 	while (str[++i])
 	{
 		if (str[i] != '1' && str[i] != '0' && str[i] != ' '
-			&& !ft_strchr("NSEWCO", str[i])) //added 'CO'
+			&& !ft_strchr("NSEWCOX", str[i])) //added 'COX'
 			{
 				return (1);
 			}
@@ -194,9 +194,6 @@ int		handleMap(int	fd)
 
 	map = getType()->map;
 	i = -1;
-	while (map[++i])
-		printf("%s\n",map[i]);
-	printf("x: %d    y:%d\n",getType()->max_x, getType()->max_y);
 	return (0);
 }
 

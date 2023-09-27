@@ -6,7 +6,7 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 13:11:12 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/09/25 17:30:01 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/09/27 12:34:32 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void    draw_block(mlx_image_t *img, int start, int end, int ray, uint32_t color
         start++;
     }
 }
+
 void    draw_wall(t_mlx *mlx, t_ray *ray, int r, float distray, float angle_step, float ra)
 {
     float wall_strip_hight;
@@ -97,7 +98,7 @@ void draw_ray(t_mlx *mlx)
 		calculate_horizontal(ra, mlx, &ray);
 		calculate_vertical(ra, mlx, &ray);
 		small_dist(&ray, mlx, &distray);
-		draw_line(mlx->minimap_img, (mlx->movex)*map_size, (mlx->movey)*map_size, (ray.rx)*map_size, (ray.ry)*map_size,0x00ff00FF);
+		draw_line(mlx->minimap_img, mlx->movex, mlx->movey, ray.rx, ray.ry,0x00ff00FF);
         draw_wall(mlx, &ray, r, distray, angle_step, ra);
 		ra += angle_step;
     }
@@ -109,6 +110,26 @@ void    ffps(void *ptr, mlx_image_t *txt)
     mlx_put_pixel(txt, 0, 0, 0xff0000ff);
 }
 
+void     draw_miniplayer(t_mlx *mlx)
+{
+    int x;
+    int y;
+
+    x = 0;
+    y = 0;
+    while (y < 24)
+    {
+        x = 0;
+        while (x < 24)
+        {
+            if (calculate_dist(mlx->movex-4, mlx->movey-4, mlx->movex+x, mlx->movey+y)<=18)
+                put_on_minimap(mlx, (mlx->movex) + x,(mlx->movey) + y, 0xff0000ff);
+            x++;
+        }
+        y++;
+    }
+}
+
 void    drow_player(void *ptr)
 {
 	t_mlx   *mlx;
@@ -117,6 +138,7 @@ void    drow_player(void *ptr)
 	mlx = (t_mlx*)ptr;
 	if (mlx->start)
     {
+        ft_clean(mlx);
         fps = mlx->mlx->delta_time * 1000;
         if (mlx->txt)
         {
@@ -128,6 +150,7 @@ void    drow_player(void *ptr)
             ffps(mlx->mlx,mlx->txt);
 		drow_map(mlx);
 		draw_ray(mlx);
+        //draw_miniplayer(mlx);
 		mlx->start = 0;
 	}
 }

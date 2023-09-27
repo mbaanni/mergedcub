@@ -6,7 +6,7 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 12:25:22 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/09/25 17:59:08 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/09/27 10:15:37 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void    calculate_horizontal(float ra, t_mlx *mlx, t_ray *ray)
 		ray->hyblock = -BLOCSIZE;
 		ray->hxblock = -ray->hyblock/tang;
     }
-	if(ra < M_PI)
+	if (ra < M_PI)
 	{
 		ray->hy = ((int)(mlx->movey / BLOCSIZE) * BLOCSIZE) + BLOCSIZE;
 		ray->hx = mlx->movex + (mlx->movey - ray->hy)/tang;
@@ -86,7 +86,7 @@ void    calculate_horizontal(float ra, t_mlx *mlx, t_ray *ray)
 	while(x < mlx->max)
 	{
 		mx = ray->hx/BLOCSIZE;
-		my = ray->hy/BLOCSIZE - 1 * (ra > M_PI);
+		my = (ray->hy - 1 * (ra > M_PI))/BLOCSIZE;
 		if (my <= 0 || my >= len_2d(mlx->map) || mx <= 0 || mx >= line_end_n(mlx->map[my]))
 			break ;
         if (!mlx->map[my] || !mlx->map[my][mx])
@@ -117,7 +117,7 @@ void    calculate_vertical(float ra, t_mlx *mlx, t_ray *ray)
 	
     if (ra > (M_PI/2) && ra < (3*M_PI/2))
     {
-        ray->vx = ((int)(mlx->movex / BLOCSIZE ) * BLOCSIZE );
+        ray->vx = ((int)(mlx->movex / BLOCSIZE ) * BLOCSIZE);
         ray->vy = mlx->movey + (mlx->movex - ray->vx) * tang;
         ray->vxblock = -BLOCSIZE;
         ray->vyblock = -ray->vxblock*tang;
@@ -125,7 +125,7 @@ void    calculate_vertical(float ra, t_mlx *mlx, t_ray *ray)
     x = 0;
     while (x < mlx->max)
     {
-        mx = ray->vx/BLOCSIZE - 1 * (ra > (M_PI/2) && ra < (3*M_PI/2));
+        mx = (ray->vx - 1 * (ra > (M_PI/2) && ra < (3*M_PI/2)))/BLOCSIZE;
         my = ray->vy/BLOCSIZE;
         if (my <= 0 || my >= len_2d(mlx->map) || mx <= 0 || mx >= line_end_n(mlx->map[my]))
 			break ;
