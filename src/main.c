@@ -6,7 +6,7 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 10:20:15 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/09/27 13:16:16 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/09/27 14:58:13 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	load_mlx(t_mlx *mlx)
 	mlx_image_to_window(mlx->mlx, mlx->img, 0, 0);
 	mlx_image_to_window(mlx->mlx, mlx->minimap_img, 0, 0);
 }
+
 int	load_image(t_mlx *mlx)
 {
 	mlx->tile[0] = mlx_load_png("img/steel.png");
