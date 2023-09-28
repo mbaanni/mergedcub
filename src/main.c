@@ -43,14 +43,27 @@ int	load_image(t_mlx *mlx)
 
 void	set_value(t_mlx *mlx)
 {
+	int i;
+
+	i = 0;
 	get_type()->mlx = mlx;
 	mlx->map = get_type()->map;
 	mlx->movex = get_player()->x;
 	mlx->movey = get_player()->y;
+	while(mlx->map[i])
+		i++;
+	mlx->map_hight = i;
+	i = 0;
+	while(mlx->map[0][i])
+		i++;
+	mlx->map_width = i;
+	mlx->max = i;
 	mlx->movex += BLOCSIZE / 2;
 	mlx->movey += BLOCSIZE / 2;
+
 	mlx->map_hight = get_type()->max_y;
 	mlx->map_width = get_type()->max_x;
+	printf("maxy %d maxx%d\n", get_type()->max_y, get_type()->max_x);
 	mlx->max = mlx->map_hight;
 	if (mlx->map_width > mlx->map_hight)
 		mlx->max = mlx->map_width;

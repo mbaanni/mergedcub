@@ -56,7 +56,7 @@ float	wall_calculation(float	*distray, float angle_step, int r, float *wall)
 	if (*distray < 0)
 		*distray = 1;
 	// //fish eyes
-	*distray = cos(30 * M_PI / 180 - (r * angle_step)) * *(distray);
+	*distray = cos(30 * M_PI / 180 - (r * angle_step)) * (*distray);
 	wall_strip_hight = BLOCSIZE / *distray * 1200;
 	wall[START] = (HEIGHT / 2) - (wall_strip_hight / 2);
 	wall[END] = (HEIGHT / 2) + (wall_strip_hight / 2);
@@ -76,6 +76,7 @@ void	draw_wall(t_mlx *mlx, t_ray *ray, int r, float distray,
 	int			texter_x;
 	wall[START] = 0;
 	wall_strip_hight = wall_calculation(&distray, angle_step, r, wall);
+	printf("d = %d\n", distray);
 	texter_x = mlx->offset * ((int)(mlx->tile[mlx->side]->width / BLOCSIZE));
 	if (mlx->side == TOP || mlx->side == RIGHT)
 		texter_x = mlx->tile[mlx->side]->width - texter_x;
@@ -100,7 +101,6 @@ void	draw_ray(t_mlx *mlx)
 	float	distray;
 
 	r = -1;
-	mlx->ray = &ray;
 	angle_step = (FIELD_OF_VIEW * (M_PI / 180)) / WIDTH;
 	ra = mlx->angle - ((float)FIELD_OF_VIEW / 2) * (M_PI / 180);
 	while (++r < WIDTH)
@@ -108,7 +108,8 @@ void	draw_ray(t_mlx *mlx)
 		ra = bound_angle(ra);
 		calculate_horizontal(ra, mlx, &ray);
 		calculate_vertical(ra, mlx, &ray);
-		small_dist(&ray, mlx, &distray);
+		distray = small_dist(&ray, mlx);
+		printf("dst = %d\n", distray);
 		//draw_line(mlx->minimap_img, mlx->movex, mlx->movey, ray.rx, ray.ry,
 		//		0x00ff00FF);
 		draw_wall(mlx, &ray, r, distray, angle_step, ra);

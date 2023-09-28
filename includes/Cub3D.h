@@ -25,6 +25,7 @@
 # define BLOCSIZE 64
 # define RESIZE 1
 # define RADIUS 128
+# define M_PI 3.14159265358979323846
 # define ANGLE_SPEED 0.05
 # define PLAYER_SPEED 6
 # define FIELD_OF_VIEW 60
@@ -68,7 +69,6 @@ typedef struct t_mlx
 	mlx_image_t		*img;
 	mlx_image_t		*minimap_img;
 	mlx_texture_t	*tile[6];
-	t_ray			*ray;
 	mlx_t			*mlx;
 	mlx_image_t		*txt;
 	int				side;
@@ -174,6 +174,6 @@ void				calculate_vertical(float ra, t_mlx *mlx, t_ray *ray);
 void				calculate_horizontal(float ra, t_mlx *mlx, t_ray *ray);
 int					calculate_dist(int px, int py, int dstx1, int dsty1);
 float				bound_angle(float angle);
-void				small_dist(t_ray *ray, t_mlx *mlx, float *distray);
+float				small_dist(t_ray *ray, t_mlx *mlx);
 
 #endif

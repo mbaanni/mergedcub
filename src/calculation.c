@@ -13,40 +13,19 @@
 #include "../includes/Cub3D.h"
 #include <stdio.h>
 
-int	line_end_n(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] && (str[i] != ' ' || str[i] != '\t'))
-		i++;
-	return (i);
-}
-
-int	len_2d(char **str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
-
-void	small_dist(t_ray *ray, t_mlx *mlx, float *distray)
+float	small_dist(t_ray *ray, t_mlx *mlx)
 {
 	double	v_dist_sqr;
 	double	h_dist_sqr;
+	float	dist;
 
-	v_dist_sqr = ((ray->vx - mlx->movex) * (ray->vx - mlx->movex)) + ((ray->vy
-				- mlx->movey) * (ray->vy - mlx->movey));
-	h_dist_sqr = ((ray->hx - mlx->movex) * (ray->hx - mlx->movex)) + ((ray->hy
-				- mlx->movey) * (ray->hy - mlx->movey));
+	v_dist_sqr = pow((ray->vx - mlx->movex),2) + pow((ray->vy - mlx->movey),2);
+	h_dist_sqr = pow((ray->hx - mlx->movex),2) + pow((ray->hy - mlx->movey),2);
 	if (h_dist_sqr > v_dist_sqr)
 	{
 		ray->rx = ray->vx;
 		ray->ry = ray->vy;
-		*distray = sqrt(v_dist_sqr);
+		dist = sqrt(v_dist_sqr);
 		mlx->offset = fmod(ray->vy, BLOCSIZE);
 		mlx->side = RIGHT;
 		if (ray->vxblock > 0)
@@ -56,7 +35,7 @@ void	small_dist(t_ray *ray, t_mlx *mlx, float *distray)
 	{
 		ray->rx = ray->hx;
 		ray->ry = ray->hy;
-		*distray = sqrt(h_dist_sqr);
+		dist = sqrt(h_dist_sqr);
 		mlx->offset = fmod(ray->hx, BLOCSIZE);
 		mlx->side = TOP;
 		if (ray->hyblock < 0)
@@ -64,6 +43,8 @@ void	small_dist(t_ray *ray, t_mlx *mlx, float *distray)
 	}
 	if (mlx->map[(int)ray->ry / BLOCSIZE][(int)ray->rx / BLOCSIZE] == 'C')
 		mlx->side = DOR;
+	printf("h_dist = %d v_dist %d vx = %d vy = %d hx=%d hy=%d\n", h_dist_sqr, v_dist_sqr, ray->vx, ray->vy, ray->hx, ray->hy);
+	return dist;
 }
 
 void	calculate_horizontal(float ra, t_mlx *mlx, t_ray *ray)
@@ -76,7 +57,7 @@ void	calculate_horizontal(float ra, t_mlx *mlx, t_ray *ray)
 	tang = -tan(ra);
 	if (ra > M_PI)
 	{
-		ray->hy = (int)(mlx->movey / BLOCSIZE) * BLOCSIZE;
+		ray->hy = (int)(mlx->movey / BLOCSIZE) * BLOCSIZE - 0.001;
 		ray->hx = mlx->movex + (mlx->movey - ray->hy) / tang;
 		ray->hyblock = -BLOCSIZE;
 		ray->hxblock = -ray->hyblock / tang;
@@ -92,9 +73,8 @@ void	calculate_horizontal(float ra, t_mlx *mlx, t_ray *ray)
 	while (x < mlx->max)
 	{
 		mx = ray->hx / BLOCSIZE;
-		my = ray->hy / BLOCSIZE - 1 * (ra > M_PI);
-		if (my <= 0 || my >= len_2d(mlx->map) || mx <= 0
-			|| mx >= line_end_n(mlx->map[my]))
+		my = ray->hy / BLOCSIZE;
+		if (my < 0 || mx < 0 || mx > mlx->map_width || my > mlx->map_hight)
 			break ;
 		if (!mlx->map[my] || !mlx->map[my][mx])
 			break ;
@@ -117,14 +97,14 @@ void	calculate_vertical(float ra, t_mlx *mlx, t_ray *ray)
 	tang = -tan(ra);
 	if (ra > (3 * M_PI) / 2 || ra < M_PI / 2)
 	{
-		ray->vx = ((int)(mlx->movex / BLOCSIZE) * BLOCSIZE) + BLOCSIZE;
+		ray->vx = (int)(mlx->movex / BLOCSIZE) * BLOCSIZE + BLOCSIZE;
 		ray->vy = mlx->movey + (mlx->movex - ray->vx) * tang;
 		ray->vxblock = BLOCSIZE;
 		ray->vyblock = -ray->vxblock * tang;
 	}
 	if (ra > (M_PI / 2) && ra < (3 * M_PI / 2))
 	{
-		ray->vx = ((int)(mlx->movex / BLOCSIZE) * BLOCSIZE);
+		ray->vx = (int)(mlx->movex / BLOCSIZE) * BLOCSIZE - 0.001;
 		ray->vy = mlx->movey + (mlx->movex - ray->vx) * tang;
 		ray->vxblock = -BLOCSIZE;
 		ray->vyblock = -ray->vxblock * tang;
@@ -132,10 +112,9 @@ void	calculate_vertical(float ra, t_mlx *mlx, t_ray *ray)
 	x = 0;
 	while (x < mlx->max)
 	{
-		mx = ray->vx /BLOCSIZE - 1 * (ra > (M_PI / 2) && ra < (3 * M_PI / 2));
+		mx = ray->vx /BLOCSIZE;
 		my = ray->vy / BLOCSIZE;
-		if (my <= 0 || my >= len_2d(mlx->map) || mx <= 0
-			|| mx >= line_end_n(mlx->map[my]))
+		if (my <= 0 || mx <= 0)
 			break ;
 		if (!mlx->map[my] || !mlx->map[my][mx])
 			break ;
