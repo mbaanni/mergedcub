@@ -20,8 +20,8 @@
 # include <math.h>
 # include <stdio.h>
 
-# define WIDTH 1920
-# define HEIGHT 1080
+# define WIDTH 1000
+# define HEIGHT 750
 # define BLOCSIZE 64
 # define RESIZE 1
 # define RADIUS 128
@@ -36,7 +36,7 @@ enum
 	WE,
 	EA,
 	START = 0,
-	END = 0,
+	END,
 };
 
 enum
