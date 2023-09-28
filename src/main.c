@@ -67,15 +67,12 @@ int	main(int ac, char **av)
 	if (ft_parse(*(av + 1)))
 		return (1);
 	set_value(&mlx);
+	load_mlx(&mlx);
 	if (load_image(&mlx))
 	{
 		write(2, "Failed to load image\n", 21);
 		exit(1);
 	}
-	for(int i = 0; mlx.map[i];i++)
-		printf("ok%sok\n", mlx.map[i]);
-	printf("x= %d, y = %d\n", mlx.movex, mlx.movey);
-	load_mlx(&mlx);
 	mlx.start = 1;
 	mlx_key_hook(mlx.mlx, dor_click, &mlx);
 	mlx_loop_hook(mlx.mlx, event_win, &mlx);

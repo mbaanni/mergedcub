@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../includes/Cub3D.h"
-#include <stdint.h>
 
 float	dist(float px, float py, float rx, float ry)
 {
@@ -51,16 +50,18 @@ void	draw_block(mlx_image_t *img, int start, int end, int ray, uint32_t color)
 	}
 }
 
-float	wall_calculation(float	distray, float angle_step, int r, float *wall)
+float	wall_calculation(float	*distray, float angle_step, int r, float *wall)
 {
 	float		wall_strip_hight;
-	if (distray < 0)
-		distray = 1;
+	if (*distray < 0)
+		*distray = 1;
 	// //fish eyes
-	distray = cos(30 * M_PI / 180 - (r * angle_step)) * distray;
-	wall_strip_hight = BLOCSIZE / distray * 1200;
+	*distray = cos(30 * M_PI / 180 - (r * angle_step)) * *(distray);
+	wall_strip_hight = BLOCSIZE / *distray * 1200;
 	wall[START] = (HEIGHT / 2) - (wall_strip_hight / 2);
 	wall[END] = (HEIGHT / 2) + (wall_strip_hight / 2);
+	if (wall[START] < 0)
+		wall[START] = 0;
 	return (wall_strip_hight);
 }
 
@@ -73,10 +74,8 @@ void	draw_wall(t_mlx *mlx, t_ray *ray, int r, float distray,
 	float		wall[2];
 	int			texter_y;
 	int			texter_x;
-
-	wall_strip_hight = wall_calculation(distray, angle_step, r, wall);
-	if (wall[START] < 0)
-		wall[START] = 0;
+	wall[START] = 0;
+	wall_strip_hight = wall_calculation(&distray, angle_step, r, wall);
 	texter_x = mlx->offset * ((int)(mlx->tile[mlx->side]->width / BLOCSIZE));
 	if (mlx->side == TOP || mlx->side == RIGHT)
 		texter_x = mlx->tile[mlx->side]->width - texter_x;
@@ -110,8 +109,8 @@ void	draw_ray(t_mlx *mlx)
 		calculate_horizontal(ra, mlx, &ray);
 		calculate_vertical(ra, mlx, &ray);
 		small_dist(&ray, mlx, &distray);
-		draw_line(mlx->minimap_img, mlx->movex, mlx->movey, ray.rx, ray.ry,
-				0x00ff00FF);
+		//draw_line(mlx->minimap_img, mlx->movex, mlx->movey, ray.rx, ray.ry,
+		//		0x00ff00FF);
 		draw_wall(mlx, &ray, r, distray, angle_step, ra);
 		ra += angle_step;
 	}
@@ -132,15 +131,13 @@ void	draw_miniplayer(t_mlx *mlx)
 
 	x = 0;
 	y = 0;
-	while (y < 24)
+	while (y < 8)
 	{
 		x = 0;
-		while (x < 24)
+		while (x < 8)
 		{
-			if (calculate_dist(mlx->movex - 4, mlx->movey - 4, mlx->movex + x,
-					mlx->movey + y) <= 18)
-				put_on_minimap(mlx, (mlx->movex) + x, (mlx->movey) + y,
-						0xff0000ff);
+			put_on_minimap(mlx, (mlx->movex) + x, (mlx->movey) + y,
+				0xff0000ff);
 			x++;
 		}
 		y++;
@@ -167,7 +164,7 @@ void	drow_player(void *ptr)
 			ffps(mlx->mlx, mlx->txt);
 		drow_map(mlx);
 		draw_ray(mlx);
-		//draw_miniplayer(mlx);
+		draw_miniplayer(mlx);
 		mlx->start = 0;
 	}
 }

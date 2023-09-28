@@ -92,7 +92,7 @@ void	calculate_horizontal(float ra, t_mlx *mlx, t_ray *ray)
 	while (x < mlx->max)
 	{
 		mx = ray->hx / BLOCSIZE;
-		my = (ray->hy - 1 * (ra > M_PI)) / BLOCSIZE;
+		my = ray->hy / BLOCSIZE - 1 * (ra > M_PI);
 		if (my <= 0 || my >= len_2d(mlx->map) || mx <= 0
 			|| mx >= line_end_n(mlx->map[my]))
 			break ;
@@ -132,8 +132,7 @@ void	calculate_vertical(float ra, t_mlx *mlx, t_ray *ray)
 	x = 0;
 	while (x < mlx->max)
 	{
-		mx = (ray->vx - 1 * (ra > (M_PI / 2) && ra < (3 * M_PI / 2)))
-			/ BLOCSIZE;
+		mx = ray->vx /BLOCSIZE - 1 * (ra > (M_PI / 2) && ra < (3 * M_PI / 2));
 		my = ray->vy / BLOCSIZE;
 		if (my <= 0 || my >= len_2d(mlx->map) || mx <= 0
 			|| mx >= line_end_n(mlx->map[my]))
