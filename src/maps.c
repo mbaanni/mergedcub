@@ -110,8 +110,8 @@ void	draw_ray(t_mlx *mlx)
 		calculate_vertical(ra, mlx, &ray);
 		distray = small_dist(&ray, mlx);
 		printf("dst = %d\n", distray);
-		//draw_line(mlx->minimap_img, mlx->movex, mlx->movey, ray.rx, ray.ry,
-		//		0x00ff00FF);
+		draw_line(mlx->minimap_img, mlx->movex, mlx->movey, ray.rx, ray.ry,
+			0x00ff00FF);
 		draw_wall(mlx, &ray, r, distray, angle_step, ra);
 		ra += angle_step;
 	}

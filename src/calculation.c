@@ -70,7 +70,7 @@ void	calculate_horizontal(float ra, t_mlx *mlx, t_ray *ray)
 		ray->hxblock = -ray->hyblock / tang;
 	}
 	x = 0;
-	while (x < mlx->max)
+	while (x < mlx->map_hight)
 	{
 		mx = ray->hx / BLOCSIZE;
 		my = ray->hy / BLOCSIZE;
@@ -110,11 +110,11 @@ void	calculate_vertical(float ra, t_mlx *mlx, t_ray *ray)
 		ray->vyblock = -ray->vxblock * tang;
 	}
 	x = 0;
-	while (x < mlx->max)
+	while (x < mlx->map_width)
 	{
 		mx = ray->vx /BLOCSIZE;
 		my = ray->vy / BLOCSIZE;
-		if (my <= 0 || mx <= 0)
+		if (my < 0 || mx < 0 || mx > mlx->map_width || my > mlx->map_hight)
 			break ;
 		if (!mlx->map[my] || !mlx->map[my][mx])
 			break ;

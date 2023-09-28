@@ -57,14 +57,8 @@ void	set_value(t_mlx *mlx)
 	while(mlx->map[0][i])
 		i++;
 	mlx->map_width = i;
-	mlx->max = i;
 	mlx->movex += BLOCSIZE / 2;
 	mlx->movey += BLOCSIZE / 2;
-
-	mlx->map_hight = get_type()->max_y;
-	mlx->map_width = get_type()->max_x;
-	printf("maxy %d maxx%d\n", get_type()->max_y, get_type()->max_x);
-	mlx->max = mlx->map_hight;
 	if (mlx->map_width > mlx->map_hight)
 		mlx->max = mlx->map_width;
 	mlx->angle = M_PI;
