@@ -18,7 +18,8 @@ float	small_dist(t_ray *ray, t_mlx *mlx)
 	double	v_dist_sqr;
 	double	h_dist_sqr;
 	float	dist;
-
+	int mx;
+	int my;
 	v_dist_sqr = pow((ray->vx - mlx->movex),2) + pow((ray->vy - mlx->movey),2);
 	h_dist_sqr = pow((ray->hx - mlx->movex),2) + pow((ray->hy - mlx->movey),2);
 	if (h_dist_sqr > v_dist_sqr)
@@ -41,9 +42,10 @@ float	small_dist(t_ray *ray, t_mlx *mlx)
 		if (ray->hyblock < 0)
 			mlx->side = BOTTOM;
 	}
-	if (mlx->map[(int)ray->ry / BLOCSIZE][(int)ray->rx / BLOCSIZE] == 'C')
+	mx = ray->ry / BLOCSIZE;
+	my = ray->rx / BLOCSIZE;
+	if (mx > 0 && my > 0 && mx < mlx->map_width &&  my < mlx->map_hight && mlx->map[my][mx] == 'C')
 		mlx->side = DOR;
-	printf("h_dist = %d v_dist %d vx = %d vy = %d hx=%d hy=%d\n", h_dist_sqr, v_dist_sqr, ray->vx, ray->vy, ray->hx, ray->hy);
 	return dist;
 }
 
