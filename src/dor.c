@@ -6,7 +6,7 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 14:38:41 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/09/27 14:41:56 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/09/28 13:23:35 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 float	bound_angle(float angle)
 {
 	if (angle < 0)
-		angle += 2 * PI;
-	else if (angle >= 2 * PI)
-		angle -= 2 * PI;
+		angle += 2 * M_PI;
+	else if (angle >= 2 * M_PI)
+		angle -= 2 * M_PI;
 	return (angle);
 }
 

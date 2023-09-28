@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   singelton_object.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtaib <mtaib@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 16:35:14 by mtaib             #+#    #+#             */
-/*   Updated: 2023/09/18 15:57:14 by mtaib            ###   ########.fr       */
+/*   Updated: 2023/09/28 13:40:51 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/Cub3D.h"
 
-t_mapInfo*		getType(void)
+t_mapInfo*		get_type(void)
 {
 	static t_mapInfo 	*mapInfo;
 

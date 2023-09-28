@@ -6,7 +6,7 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 10:00:26 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/09/27 14:58:57 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/09/28 13:23:16 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ void	mouse_scroll(t_mlx *mlx)
 		mlx->angle -= ANGLE_SPEED * 2;
 	if (post < x)
 		mlx->angle += ANGLE_SPEED * 2;
-	if (mlx->angle >= 2 * PI)
-		mlx->angle -= 2 * PI;
+	if (mlx->angle >= 2 * M_PI)
+		mlx->angle -= 2 * M_PI;
 	if (mlx->angle < 0)
-		mlx->angle += 2 * PI;
+		mlx->angle += 2 * M_PI;
 	if (x > WIDTH || x < 0)
 	{
 		x = HEIGHT / 2;
@@ -81,11 +81,11 @@ void	player_movement(t_mlx *mlx)
 		check_next_xy(mlx, -cos(mlx->angle) * PLAYER_SPEED * x, -sin(mlx->angle)
 				* PLAYER_SPEED * x);
 	else if (mlx_is_key_down(mlx->mlx, MLX_KEY_D))
-		check_next_xy(mlx, cos(mlx->angle + PI / 2) * PLAYER_SPEED * x,
-				sin(mlx->angle + PI / 2) * PLAYER_SPEED * x);
+		check_next_xy(mlx, cos(mlx->angle + M_PI / 2) * PLAYER_SPEED * x,
+				sin(mlx->angle + M_PI / 2) * PLAYER_SPEED * x);
 	else if (mlx_is_key_down(mlx->mlx, MLX_KEY_A))
-		check_next_xy(mlx, cos(mlx->angle - PI / 2) * PLAYER_SPEED * x,
-				sin(mlx->angle - PI / 2) * PLAYER_SPEED * x);
+		check_next_xy(mlx, cos(mlx->angle - M_PI / 2) * PLAYER_SPEED * x,
+				sin(mlx->angle - M_PI / 2) * PLAYER_SPEED * x);
 }
 
 void	player_angle(t_mlx *mlx)
@@ -93,15 +93,15 @@ void	player_angle(t_mlx *mlx)
 	if (mlx_is_key_down(mlx->mlx, MLX_KEY_RIGHT))
 	{
 		mlx->angle += ANGLE_SPEED;
-		if (mlx->angle >= 2 * PI)
-			mlx->angle -= 2 * PI;
+		if (mlx->angle >= 2 * M_PI)
+			mlx->angle -= 2 * M_PI;
 		mlx->start = 1;
 	}
 	else if (mlx_is_key_down(mlx->mlx, MLX_KEY_LEFT))
 	{
 		mlx->angle -= ANGLE_SPEED;
 		if (mlx->angle < 0)
-			mlx->angle += 2 * PI;
+			mlx->angle += 2 * M_PI;
 		mlx->start = 1;
 	}
 }

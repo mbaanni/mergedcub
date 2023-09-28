@@ -6,7 +6,7 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 13:11:12 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/09/27 15:28:20 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/09/28 13:53:40 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,17 @@ void	draw_block(mlx_image_t *img, int start, int end, int ray, uint32_t color)
 	}
 }
 
-void	wall_calculation(float	distray, float angle_step, int r)
+float	wall_calculation(float	distray, float angle_step, int r, float *wall)
 {
+	float		wall_strip_hight;
 	if (distray < 0)
 		distray = 1;
 	// //fish eyes
-	distray = cos(30 * PI / 180 - (r * angle_step)) * distray;
+	distray = cos(30 * M_PI / 180 - (r * angle_step)) * distray;
 	wall_strip_hight = BLOCSIZE / distray * 1200;
-	wall_start = (HEIGHT / 2) - (wall_strip_hight / 2);
-	wall_end = (HEIGHT / 2) + (wall_strip_hight / 2);
+	wall[START] = (HEIGHT / 2) - (wall_strip_hight / 2);
+	wall[END] = (HEIGHT / 2) + (wall_strip_hight / 2);
+	return (wall_strip_hight);
 }
 
 void	draw_wall(t_mlx *mlx, t_ray *ray, int r, float distray,
@@ -72,22 +74,22 @@ void	draw_wall(t_mlx *mlx, t_ray *ray, int r, float distray,
 	int			texter_y;
 	int			texter_x;
 
-	wall_calculation(distray, angle_step, r);
+	wall_strip_hight = wall_calculation(distray, angle_step, r, wall);
 	if (wall[START] < 0)
 		wall[START] = 0;
 	texter_x = mlx->offset * ((int)(mlx->tile[mlx->side]->width / BLOCSIZE));
 	if (mlx->side == TOP || mlx->side == RIGHT)
 		texter_x = mlx->tile[mlx->side]->width - texter_x;
 	draw_block(mlx->img, 0, HEIGHT / 2, r, 0x45b3e0ff);
-	while (wall[START] < wall_end && wall[START] < HEIGHT)
+	while (wall[START] < wall[END] && wall[START] < HEIGHT)
 	{
-		texter_y = (1.0 - (wall_end - wall[START]) / wall_strip_hight)
+		texter_y = (1.0 - (wall[END] - wall[START]) / wall_strip_hight)
 			* (mlx->tile[mlx->side]->height);
 		color = get_color(mlx, texter_y, texter_x);
 		mlx_put_pixel(mlx->img, r, wall[START], color);
 		wall[START]++;
 	}
-	draw_block(mlx->img, wall_end, HEIGHT, r, 0xffffff00);
+	draw_block(mlx->img, wall[END], HEIGHT, r, 0xffffff00);
 }
 
 void	draw_ray(t_mlx *mlx)
@@ -100,9 +102,8 @@ void	draw_ray(t_mlx *mlx)
 
 	r = -1;
 	mlx->ray = &ray;
-	angle_step = (FIELD_OF_VIEW * (PI / 180)) / WIDTH;
-	ra = mlx->angle - ((float)FIELD_OF_VIEW / 2) * (PI / 180) + angle_step
-		* 0.5;
+	angle_step = (FIELD_OF_VIEW * (M_PI / 180)) / WIDTH;
+	ra = mlx->angle - ((float)FIELD_OF_VIEW / 2) * (M_PI / 180);
 	while (++r < WIDTH)
 	{
 		ra = bound_angle(ra);

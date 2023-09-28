@@ -6,7 +6,7 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 10:20:15 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/09/27 14:58:13 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/09/28 13:36:03 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,14 @@ int	load_image(t_mlx *mlx)
 
 void	set_value(t_mlx *mlx)
 {
-	getType()->mlx = mlx;
-	mlx->map = getType()->map;
+	get_type()->mlx = mlx;
+	mlx->map = get_type()->map;
 	mlx->movex = get_player()->x;
 	mlx->movey = get_player()->y;
 	mlx->movex += BLOCSIZE / 2;
 	mlx->movey += BLOCSIZE / 2;
-	mlx->map_hight = getType()->max_y;
-	mlx->map_width = getType()->max_x;
+	mlx->map_hight = get_type()->max_y;
+	mlx->map_width = get_type()->max_x;
 	mlx->max = mlx->map_hight;
 	if (mlx->map_width > mlx->map_hight)
 		mlx->max = mlx->map_width;
@@ -64,7 +64,7 @@ int	main(int ac, char **av)
 	if (ac != 2)
 		return (1);
 	ft_memset(&mlx, 0, sizeof(mlx));
-	if (mapParsing(*(av + 1)))
+	if (ft_parse(*(av + 1)))
 		return (1);
 	set_value(&mlx);
 	if (load_image(&mlx))
@@ -72,6 +72,9 @@ int	main(int ac, char **av)
 		write(2, "Failed to load image\n", 21);
 		exit(1);
 	}
+	for(int i = 0; mlx.map[i];i++)
+		printf("ok%sok\n", mlx.map[i]);
+	printf("x= %d, y = %d\n", mlx.movex, mlx.movey);
 	load_mlx(&mlx);
 	mlx.start = 1;
 	mlx_key_hook(mlx.mlx, dor_click, &mlx);
