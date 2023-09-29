@@ -6,85 +6,55 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 12:25:22 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/09/27 10:15:37 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/09/29 22:12:41 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/Cub3D.h"
-#include <stdio.h>
 
-float	small_dist(t_ray *ray, t_mlx *mlx)
+void	set_point(t_mlx *mlx, float	*pos[2], float	*pblock[2], char flag)
 {
-	double	v_dist_sqr;
-	double	h_dist_sqr;
-	float	dist;
-	int mx;
-	int my;
-	v_dist_sqr = pow((ray->vx - mlx->movex),2) + pow((ray->vy - mlx->movey),2);
-	h_dist_sqr = pow((ray->hx - mlx->movex),2) + pow((ray->hy - mlx->movey),2);
-	if (h_dist_sqr > v_dist_sqr)
+	if (flag == 'v')
 	{
-		mlx->rx = ray->vx;
-		mlx->ry = ray->vy;
-		dist = sqrt(v_dist_sqr);
-		mlx->offset = fmod(ray->vy, BLOCSIZE);
-		mlx->side = RIGHT;
-		if (ray->vxblock > 0)
-			mlx->side = LEFT;
+		pos[X] = &mlx->ray->vx;
+		pos[Y] = &mlx->ray->vy;
+		pblock[X] = &mlx->ray->vxblock;
+		pblock[Y] = &mlx->ray->vyblock;
+		mlx->max = mlx->map_width;
 	}
 	else
 	{
-		mlx->rx = ray->hx;
-		mlx->ry = ray->hy;
-		dist = sqrt(h_dist_sqr);
-		mlx->offset = fmod(ray->hx, BLOCSIZE);
-		mlx->side = TOP;
-		if (ray->hyblock < 0)
-			mlx->side = BOTTOM;
+		pos[X] = &mlx->ray->hx;
+		pos[Y] = &mlx->ray->hy;
+		pblock[X] = &mlx->ray->hxblock;
+		pblock[Y] = &mlx->ray->hyblock;
+		mlx->max = mlx->map_hight;
 	}
-	mx = mlx->ry / BLOCSIZE;
-	my = mlx->rx / BLOCSIZE;
-	if (mx > 0 && my > 0 && mx < mlx->map_width &&  my < mlx->map_hight && mlx->map[my][mx] == 'C')
-		mlx->side = DOR;
-	return dist;
 }
 
-void	last_wall_hit(t_mlx *mlx, t_ray *ray, char flag)
+void	last_wall_hit(t_mlx *mlx, char flag)
 {
-	int		x;
+	int		inc;
 	int		mp[2];
 	float	*pos[2];
 	float	*pblock[2];
-	int		max;
 
-	x = 0;
-	pos[X] = &ray->vx;
-	pos[Y] = &ray->vy;
-	pblock[X] = &ray->vxblock;
-	pblock[Y] = &ray->vyblock;
-	max = mlx->map_width;
-	if (flag == 'h')
+	inc = -1;
+	set_point(mlx, pos, pblock, flag);
+	while (++inc < mlx->max)
 	{
-		pos[X] = &ray->hx;
-		pos[Y] = &ray->hy;
-		pblock[X] = &ray->hxblock;
-		pblock[Y] = &ray->hyblock;
-		max = mlx->map_hight;
-	}
-	while (x < max)
-	{
-		mp[X] = *pos[x] / BLOCSIZE;
+		mp[X] = *pos[X] / BLOCSIZE;
 		mp[Y] = *pos[Y] / BLOCSIZE;
-		if (mp[Y] < 0 || mp[X] < 0 || mp[X] > mlx->map_width || *pos[Y] > mlx->map_hight)
+		if (mp[Y] < 0 || mp[X] < 0 || mp[X] > mlx->map_width
+			|| mp[Y] > mlx->map_hight)
 			break ;
 		if (!mlx->map[mp[Y]] || !mlx->map[mp[Y]][mp[X]])
 			break ;
 		if (mlx->map[mp[Y]][mp[X]] && (mlx->map[mp[Y]][mp[X]] == '1'
 				|| mlx->map[mp[Y]][mp[X]] == 'C'))
 			break ;
-		*pos[x] = *pos[x] + *pblock[X];
-		*pos[Y] = *pos[Y] + *pblock[Y];
-		x++;
+		*pos[X] += *pblock[X];
+		*pos[Y] += *pblock[Y];
 	}
 }
 
@@ -105,15 +75,12 @@ void	calculate_horizontal(float ra, t_mlx *mlx, t_ray *ray)
 	}
 	ray->hx = mlx->movex + (mlx->movey - ray->hy) / tang;
 	ray->hxblock = -ray->hyblock / tang;
-	last_wall_hit(mlx, ray, 'h');
-
+	last_wall_hit(mlx, 'h');
 }
 
 void	calculate_vertical(float ra, t_mlx *mlx, t_ray *ray)
 {
 	float	tang;
-	int		mx;
-	int		my;
 
 	tang = -tan(ra);
 	if (ra > (3 * M_PI) / 2 || ra < M_PI / 2)
@@ -128,5 +95,5 @@ void	calculate_vertical(float ra, t_mlx *mlx, t_ray *ray)
 	}
 	ray->vy = mlx->movey + (mlx->movex - ray->vx) * tang;
 	ray->vyblock = -ray->vxblock * tang;
-	last_wall_hit(mlx, ray, 'v');
+	last_wall_hit(mlx, 'v');
 }

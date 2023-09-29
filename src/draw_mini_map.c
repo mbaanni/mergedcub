@@ -75,8 +75,8 @@ void	put_pixel(int color, t_mlx *mlx, int x, int y)
 
 int	drow_map(t_mlx *mlx)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;

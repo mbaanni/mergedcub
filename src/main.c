@@ -6,7 +6,7 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 10:20:15 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/09/28 13:36:03 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/09/29 18:37:21 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,18 @@ int	load_image(t_mlx *mlx)
 
 void	set_value(t_mlx *mlx)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	get_type()->mlx = mlx;
 	mlx->map = get_type()->map;
 	mlx->movex = get_player()->x;
 	mlx->movey = get_player()->y;
-	while(mlx->map[i])
+	while (mlx->map[i])
 		i++;
 	mlx->map_hight = i;
 	i = 0;
-	while(mlx->map[0][i])
+	while (mlx->map[0][i])
 		i++;
 	mlx->map_width = i;
 	mlx->movex += BLOCSIZE / 2;

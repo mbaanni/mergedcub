@@ -6,7 +6,7 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 10:00:26 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/09/28 13:23:16 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/09/29 22:10:05 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	mouse_scroll(t_mlx *mlx)
 {
 	static int	x;
 	int			y;
-	int			curent;
 	int			post;
 
 	post = x;
@@ -51,9 +50,9 @@ void	check_next_xy(t_mlx *mlx, int x, int y)
 	if (y < 0)
 		offsety = -offsety;
 	if ((mlx->map[(int)((mlx->movey + y + offsety) / BLOCSIZE)][(int)(mlx->movex
-			/ BLOCSIZE)]) != '1' && (mlx->map[(int)((mlx->movey + y
-			+ offsety) / BLOCSIZE)][(int)(mlx->movex
-			/ BLOCSIZE)]) != 'C')
+		/ BLOCSIZE)]) != '1' && (mlx->map[(int)((mlx->movey + y
+		+ offsety) / BLOCSIZE)][(int)(mlx->movex
+		/ BLOCSIZE)]) != 'C')
 	{
 		mlx->movey += y;
 		mlx->start = 1;
@@ -76,16 +75,16 @@ void	player_movement(t_mlx *mlx)
 		x = 2;
 	if (mlx_is_key_down(mlx->mlx, MLX_KEY_W))
 		check_next_xy(mlx, cos(mlx->angle) * PLAYER_SPEED * x, sin(mlx->angle)
-				* PLAYER_SPEED * x);
+			* PLAYER_SPEED * x);
 	else if (mlx_is_key_down(mlx->mlx, MLX_KEY_S))
 		check_next_xy(mlx, -cos(mlx->angle) * PLAYER_SPEED * x, -sin(mlx->angle)
-				* PLAYER_SPEED * x);
+			* PLAYER_SPEED * x);
 	else if (mlx_is_key_down(mlx->mlx, MLX_KEY_D))
 		check_next_xy(mlx, cos(mlx->angle + M_PI / 2) * PLAYER_SPEED * x,
-				sin(mlx->angle + M_PI / 2) * PLAYER_SPEED * x);
+			sin(mlx->angle + M_PI / 2) * PLAYER_SPEED * x);
 	else if (mlx_is_key_down(mlx->mlx, MLX_KEY_A))
 		check_next_xy(mlx, cos(mlx->angle - M_PI / 2) * PLAYER_SPEED * x,
-				sin(mlx->angle - M_PI / 2) * PLAYER_SPEED * x);
+			sin(mlx->angle - M_PI / 2) * PLAYER_SPEED * x);
 }
 
 void	player_angle(t_mlx *mlx)
@@ -118,5 +117,5 @@ void	event_win(void *param)
 	}
 	player_movement(mlx);
 	player_angle(mlx);
-	//mouse_scroll(mlx);
+	mouse_scroll(mlx);
 }

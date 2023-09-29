@@ -23,9 +23,9 @@ float	bound_angle(float angle)
 
 void	dor_click(mlx_key_data_t key, void *ptr)
 {
-	t_mlx *mlx;
-	int mx;
-	int my;
+	t_mlx	*mlx;
+	int		mx;
+	int		my;
 
 	mlx = (t_mlx *)ptr;
 	if (key.key == MLX_KEY_E && mlx_is_key_down(mlx->mlx, key.key))

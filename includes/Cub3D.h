@@ -6,7 +6,7 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 14:43:21 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/09/28 13:38:12 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/09/29 22:18:57 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@
 # define BLOCSIZE 64
 # define RESIZE 1
 # define RADIUS 128
-# define M_PI 3.14159265358979323846
 # define ANGLE_SPEED 0.05
 # define PLAYER_SPEED 6
 # define FIELD_OF_VIEW 60
@@ -57,6 +56,7 @@ typedef struct t_ray
 	float			vy;
 	float			vxblock;
 	float			vyblock;
+	float			angle_step;
 }					t_ray;
 
 typedef struct t_mlx
@@ -65,6 +65,7 @@ typedef struct t_mlx
 	mlx_image_t		*minimap_img;
 	mlx_texture_t	*tile[6];
 	mlx_t			*mlx;
+	t_ray			*ray;
 	mlx_image_t		*txt;
 	int				side;
 	void			*mlx_win;
@@ -82,24 +83,24 @@ typedef struct t_mlx
 	char			**map;
 	float			rx;
 	float			ry;
-}	t_mlx;
+}					t_mlx;
 
 typedef struct s_info
 {
-	int			start;
-	int			end;
-	int			ray;
-	uint32_t	color;
-}	t_info;
+	int				start;
+	int				end;
+	int				ray;
+	uint32_t		color;
+}					t_info;
 
-typedef struct  s_dirs
+typedef struct s_dirs
 {
-	char	*key;
-	char	*path;
-	struct s_dirs		*next;
-} 	t_dirs;
+	char			*key;
+	char			*path;
+	struct s_dirs	*next;
+}					t_dirs;
 
-typedef struct	s_mapInfo
+typedef struct s_mapInfo
 {
 	t_dirs			*directions;
 	int				dirNbs;
@@ -108,52 +109,52 @@ typedef struct	s_mapInfo
 	int				max_x;
 	int				max_y;
 	float			pa;
-	mlx_t  		    *init;
-    mlx_image_t     *img;
+	mlx_t			*init;
+	mlx_image_t		*img;
 	t_mlx			*mlx;
 
-}	t_mapInfo;
+}					t_mapInfo;
 
-typedef struct s_player 
+typedef struct s_player
 {
 	int				x;
 	int				y;
-}	t_player;
+}					t_player;
 
 /*********MAP PARSING*************/
 
-int				ft_parse(char *str);
-int				check_path(char *str);
-int				is_direction(char *str);
-int				check_elements(char	*str);
-int				check_directions(char *str);
-t_mapInfo*			get_type(void);
+int					ft_parse(char *str);
+int					check_path(char *str);
+int					is_direction(char *str);
+int					check_elements(char *str);
+int					check_directions(char *str);
+t_mapInfo			*get_type(void);
 void				ft_intersection(void *ptr);
-int				print_error(int	i);
-void  		 		ft_move(void *arg);
-int				check_chars(char **map);
-int				is_valid_charset(char *str);
-void    			print_map();
-t_player*			get_player(void);
-int				is_all_value(char *str, char c);
-int				check_map_errors(char **map);
-int				check_borders(char **map, char c);
-int				max_len();
-int				check_file_name(char *str);
+int					print_error(int i);
+void				ft_move(void *arg);
+int					check_chars(char **map);
+int					is_valid_charset(char *str);
+void				print_map(void);
+t_player			*get_player(void);
+int					is_all_value(char *str, char c);
+int					check_map_errors(char **map);
+int					check_borders(char **map, char c);
+int					max_len(void);
+int					check_file_name(char *str);
 
 /*************CHECK DIRECTIONS************/
-int				print_error(int	i);
+int					print_error(int i);
 void				print_map_error(int i);
-int				check_dirs(char *str);
-int				save_colors_value(char *str);
-int				count_point(char *str);
-int				check_path(char *path);
+int					check_dirs(char *str);
+int					save_colors_value(char *str);
+int					count_point(char *str);
+int					check_path(char *path);
 /*********************************/
 
 /*********LINKED LIST UTILS*******************/
 
-t_dirs		*lstnew(char	 *key, char *path);
-void		lstadd_back(t_dirs **lst, t_dirs *newnode);
+t_dirs				*lstnew(char *key, char *path);
+void				lstadd_back(t_dirs **lst, t_dirs *newnode);
 
 /*********************************************/
 
@@ -165,12 +166,17 @@ int					creat_block(t_mlx *mlx);
 void				dor_click(mlx_key_data_t key, void *ptr);
 void				put_on_minimap(t_mlx *mlx, int x, int y, int color);
 int					drow_map(t_mlx *mlx);
-void				draw_line(mlx_image_t *image, int startx, int starty,
-						int endx, int endy, int color);
+void				draw_line(int startx, int starty, int endx, int endy,
+						int color);
 void				calculate_vertical(float ra, t_mlx *mlx, t_ray *ray);
+void				draw_miniplayer(t_mlx *mlx);
 void				calculate_horizontal(float ra, t_mlx *mlx, t_ray *ray);
 int					calculate_dist(int px, int py, int dstx1, int dsty1);
+float				wall_calculation(float *distray, float angle_step, int r,
+						float *wall);
 float				bound_angle(float angle);
+float				small_dist(t_ray *ray, t_mlx *mlx);
+uint32_t			get_color(t_mlx *mlx, int y, int x);
 float				small_dist(t_ray *ray, t_mlx *mlx);
 
 #endif
