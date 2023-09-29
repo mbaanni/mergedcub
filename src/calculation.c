@@ -24,8 +24,8 @@ float	small_dist(t_ray *ray, t_mlx *mlx)
 	h_dist_sqr = pow((ray->hx - mlx->movex),2) + pow((ray->hy - mlx->movey),2);
 	if (h_dist_sqr > v_dist_sqr)
 	{
-		ray->rx = ray->vx;
-		ray->ry = ray->vy;
+		mlx->rx = ray->vx;
+		mlx->ry = ray->vy;
 		dist = sqrt(v_dist_sqr);
 		mlx->offset = fmod(ray->vy, BLOCSIZE);
 		mlx->side = RIGHT;
@@ -34,59 +34,79 @@ float	small_dist(t_ray *ray, t_mlx *mlx)
 	}
 	else
 	{
-		ray->rx = ray->hx;
-		ray->ry = ray->hy;
+		mlx->rx = ray->hx;
+		mlx->ry = ray->hy;
 		dist = sqrt(h_dist_sqr);
 		mlx->offset = fmod(ray->hx, BLOCSIZE);
 		mlx->side = TOP;
 		if (ray->hyblock < 0)
 			mlx->side = BOTTOM;
 	}
-	mx = ray->ry / BLOCSIZE;
-	my = ray->rx / BLOCSIZE;
+	mx = mlx->ry / BLOCSIZE;
+	my = mlx->rx / BLOCSIZE;
 	if (mx > 0 && my > 0 && mx < mlx->map_width &&  my < mlx->map_hight && mlx->map[my][mx] == 'C')
 		mlx->side = DOR;
 	return dist;
 }
 
+void	last_wall_hit(t_mlx *mlx, t_ray *ray, char flag)
+{
+	int		x;
+	int		mp[2];
+	float	*pos[2];
+	float	*pblock[2];
+	int		max;
+
+	x = 0;
+	pos[X] = &ray->vx;
+	pos[Y] = &ray->vy;
+	pblock[X] = &ray->vxblock;
+	pblock[Y] = &ray->vyblock;
+	max = mlx->map_width;
+	if (flag == 'h')
+	{
+		pos[X] = &ray->hx;
+		pos[Y] = &ray->hy;
+		pblock[X] = &ray->hxblock;
+		pblock[Y] = &ray->hyblock;
+		max = mlx->map_hight;
+	}
+	while (x < max)
+	{
+		mp[X] = *pos[x] / BLOCSIZE;
+		mp[Y] = *pos[Y] / BLOCSIZE;
+		if (mp[Y] < 0 || mp[X] < 0 || mp[X] > mlx->map_width || *pos[Y] > mlx->map_hight)
+			break ;
+		if (!mlx->map[mp[Y]] || !mlx->map[mp[Y]][mp[X]])
+			break ;
+		if (mlx->map[mp[Y]][mp[X]] && (mlx->map[mp[Y]][mp[X]] == '1'
+				|| mlx->map[mp[Y]][mp[X]] == 'C'))
+			break ;
+		*pos[x] = *pos[x] + *pblock[X];
+		*pos[Y] = *pos[Y] + *pblock[Y];
+		x++;
+	}
+}
+
 void	calculate_horizontal(float ra, t_mlx *mlx, t_ray *ray)
 {
 	float	tang;
-	int		mx;
-	int		my;
-	int		x;
 
 	tang = -tan(ra);
 	if (ra > M_PI)
 	{
 		ray->hy = (int)(mlx->movey / BLOCSIZE) * BLOCSIZE - 0.001;
-		ray->hx = mlx->movex + (mlx->movey - ray->hy) / tang;
 		ray->hyblock = -BLOCSIZE;
-		ray->hxblock = -ray->hyblock / tang;
 	}
 	if (ra < M_PI)
 	{
 		ray->hy = ((int)(mlx->movey / BLOCSIZE) * BLOCSIZE) + BLOCSIZE;
-		ray->hx = mlx->movex + (mlx->movey - ray->hy) / tang;
 		ray->hyblock = BLOCSIZE;
-		ray->hxblock = -ray->hyblock / tang;
 	}
-	x = 0;
-	while (x < mlx->map_hight)
-	{
-		mx = ray->hx / BLOCSIZE;
-		my = ray->hy / BLOCSIZE;
-		if (my < 0 || mx < 0 || mx > mlx->map_width || my > mlx->map_hight)
-			break ;
-		if (!mlx->map[my] || !mlx->map[my][mx])
-			break ;
-		if (mlx->map[my][mx] && (mlx->map[my][mx] == '1'
-				|| mlx->map[my][mx] == 'C'))
-			break ;
-		ray->hx = ray->hx + ray->hxblock;
-		ray->hy = ray->hy + ray->hyblock;
-		x++;
-	}
+	ray->hx = mlx->movex + (mlx->movey - ray->hy) / tang;
+	ray->hxblock = -ray->hyblock / tang;
+	last_wall_hit(mlx, ray, 'h');
+
 }
 
 void	calculate_vertical(float ra, t_mlx *mlx, t_ray *ray)
@@ -94,37 +114,19 @@ void	calculate_vertical(float ra, t_mlx *mlx, t_ray *ray)
 	float	tang;
 	int		mx;
 	int		my;
-	int		x;
 
 	tang = -tan(ra);
 	if (ra > (3 * M_PI) / 2 || ra < M_PI / 2)
 	{
 		ray->vx = (int)(mlx->movex / BLOCSIZE) * BLOCSIZE + BLOCSIZE;
-		ray->vy = mlx->movey + (mlx->movex - ray->vx) * tang;
 		ray->vxblock = BLOCSIZE;
-		ray->vyblock = -ray->vxblock * tang;
 	}
 	if (ra > (M_PI / 2) && ra < (3 * M_PI / 2))
 	{
 		ray->vx = (int)(mlx->movex / BLOCSIZE) * BLOCSIZE - 0.001;
-		ray->vy = mlx->movey + (mlx->movex - ray->vx) * tang;
 		ray->vxblock = -BLOCSIZE;
-		ray->vyblock = -ray->vxblock * tang;
 	}
-	x = 0;
-	while (x < mlx->map_width)
-	{
-		mx = ray->vx /BLOCSIZE;
-		my = ray->vy / BLOCSIZE;
-		if (my < 0 || mx < 0 || mx > mlx->map_width || my > mlx->map_hight)
-			break ;
-		if (!mlx->map[my] || !mlx->map[my][mx])
-			break ;
-		if (mlx->map[my][mx] && (mlx->map[my][mx] == '1'
-				|| mlx->map[my][mx] == 'C'))
-			break ;
-		ray->vx = ray->vx + ray->vxblock;
-		ray->vy = ray->vy + ray->vyblock;
-		x++;
-	}
+	ray->vy = mlx->movey + (mlx->movex - ray->vx) * tang;
+	ray->vyblock = -ray->vxblock * tang;
+	last_wall_hit(mlx, ray, 'v');
 }

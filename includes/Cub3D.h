@@ -38,30 +38,25 @@ enum
 	EA,
 	START = 0,
 	END,
-};
-
-enum
-{
-	TOP,
+	TOP = 0,
 	BOTTOM,
 	RIGHT,
 	LEFT,
-	DOR
+	DOR,
+	X = 0,
+	Y
 };
 
 typedef struct t_ray
 {
 	float			hx;
 	float			hy;
-	float			rx;
-	float			ry;
-	float			vx;
-	float			vy;
 	float			hxblock;
 	float			hyblock;
+	float			vx;
+	float			vy;
 	float			vxblock;
 	float			vyblock;
-	int				max;
 }					t_ray;
 
 typedef struct t_mlx
@@ -85,6 +80,8 @@ typedef struct t_mlx
 	int				f_color;
 	int				c_color;
 	char			**map;
+	float			rx;
+	float			ry;
 }	t_mlx;
 
 typedef struct s_info
