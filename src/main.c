@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mtaib <mtaib@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 10:20:15 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/09/29 18:37:21 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/10/02 15:32:23 by mtaib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	set_value(t_mlx *mlx)
 	mlx->movey += BLOCSIZE / 2;
 	if (mlx->map_width > mlx->map_hight)
 		mlx->max = mlx->map_width;
-	mlx->angle = M_PI;
+	mlx->angle = get_type()->pa;
 }
 
 int	main(int ac, char **av)

@@ -67,6 +67,16 @@ int		check_borders(char **map, char c)
 					   || (j > 0 && map[i][j + 1] == ' ') 
 				   )
 					return (print_error(6));
+				if (c == 'C')
+				{
+					if (!((map[i - 1][j] == '1'
+					   		&& map[i + 1][j] == '1')
+				           || (map[i][j - 1] == '1'
+					   			&& map[i][j + 1] == '1') 
+				 	  	))
+						return (print_error(6));
+				}
+				
 			}
 		}
 	}

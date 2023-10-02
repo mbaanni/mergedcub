@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_elemnts.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mtaib <mtaib@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 15:15:14 by mtaib             #+#    #+#             */
-/*   Updated: 2023/09/28 13:31:16 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/10/02 15:21:55 by mtaib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int		check_elements(char	*str)
 	else if (!arg[i] && (params[0][0] == 'C' || params[0][0] == 'F'))
 		return (print_error(1));
 	params[1] = ft_substr(arg, i , ft_strlen(arg));
-	params[2] = NULL;
+	params[2] = NULL; 
 	return (free(str), check_params(params));	
 }
 // when count all dirs and do a duplication , print specific error
