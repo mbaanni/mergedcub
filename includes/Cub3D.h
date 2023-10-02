@@ -6,7 +6,7 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 14:43:21 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/09/29 22:18:57 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/10/02 18:59:01 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,5 +179,7 @@ float				bound_angle(float angle);
 float				small_dist(t_ray *ray, t_mlx *mlx);
 uint32_t			get_color(t_mlx *mlx, int y, int x);
 float				small_dist(t_ray *ray, t_mlx *mlx);
-
+/**************************************************/
+void   	free_2d(char **str);
+void	free_allocated();
 #endif

@@ -6,7 +6,7 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 13:11:12 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/09/29 22:15:37 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/10/02 19:09:23 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	draw_ray(t_mlx *mlx)
 		calculate_horizontal(ra, mlx, &ray);
 		calculate_vertical(ra, mlx, &ray);
 		distray = small_dist(&ray, mlx);
+		draw_line(mlx->movex, mlx->movey, mlx->rx, mlx->ry, 0x00ff00ff);
 		draw_wall(mlx, &ray, r, distray);
 		ra += ray.angle_step;
 	}

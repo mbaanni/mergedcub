@@ -6,7 +6,7 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 10:20:15 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/09/29 18:37:21 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/10/02 19:22:19 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,23 @@
 void	load_mlx(t_mlx *mlx)
 {
 	mlx->mlx = mlx_init(WIDTH, HEIGHT, "MLX42", 0);
+	if (!mlx->mlx)
+	{
+		free_allocated();
+		exit(1);
+	}
 	mlx->img = mlx_new_image(mlx->mlx, WIDTH, HEIGHT);
+	if (!mlx->img)
+	{
+		free_allocated();
+		exit(1);
+	}
 	mlx->minimap_img = mlx_new_image(mlx->mlx, WIDTH, HEIGHT);
+	if (!mlx->minimap_img)
+	{
+		free_allocated();
+		exit(1);
+	}
 	mlx_image_to_window(mlx->mlx, mlx->img, 0, 0);
 	mlx_image_to_window(mlx->mlx, mlx->minimap_img, 0, 0);
 }
@@ -79,6 +94,7 @@ int	main(int ac, char **av)
 	if (load_image(&mlx))
 	{
 		write(2, "Failed to load image\n", 21);
+		free_allocated();
 		mlx_terminate(mlx.mlx);
 		exit(1);
 	}
@@ -87,5 +103,6 @@ int	main(int ac, char **av)
 	mlx_loop_hook(mlx.mlx, event_win, &mlx);
 	mlx_loop_hook(mlx.mlx, drow_player, &mlx);
 	mlx_loop(mlx.mlx);
+	free_allocated();
 	mlx_terminate(mlx.mlx);
 }
