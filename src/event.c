@@ -113,6 +113,7 @@ void	event_win(void *param)
 	if (mlx_is_key_down(mlx->mlx, MLX_KEY_ESCAPE))
 	{
 		mlx_close_window(mlx->mlx);
+		mlx_terminate(mlx->mlx);
 		exit(0);
 	}
 	player_movement(mlx);

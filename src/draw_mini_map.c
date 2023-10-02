@@ -34,7 +34,8 @@ int	calculate_dist(int px, int py, int dstx1, int dsty1)
 	return (dist);
 }
 
-void	put_on_minimap(t_mlx *mlx, int x, int y, int color)
+void	
+put_on_minimap(t_mlx *mlx, int x, int y, int color)
 {
 	int	dx;
 	int	dy;

@@ -23,21 +23,22 @@ void	load_mlx(t_mlx *mlx)
 
 int	load_image(t_mlx *mlx)
 {
-	mlx->tile[0] = mlx_load_png("image/eagle.png");
-	if (mlx->tile[0]->width != mlx->tile[0]->height)
-		write(1, "Img not square\n", 15);
-	mlx->tile[1] = mlx_load_png("image/greystone.png");
-	if (mlx->tile[1]->width != mlx->tile[1]->height)
-		write(1, "image not square\n", 15);
-	mlx->tile[2] = mlx_load_png("image/bluestone.png");
-	if (mlx->tile[2]->width != mlx->tile[2]->height)
-		write(1, "image not square\n", 15);
-	mlx->tile[3] = mlx_load_png("image/redbrick.png");
-	if (mlx->tile[3]->width != mlx->tile[3]->height)
-		write(1, "image not square\n", 15);
+	t_dirs *ptr;
+	int		i;
+
+	i = 0;
+	ptr = get_type()->directions;
+	while (ptr && i < 4)
+	{
+		mlx->tile[i] = mlx_load_png(ptr->path);
+		if (mlx->tile[i]->width != mlx->tile[i]->height)
+			return (1);
+		ptr = ptr->next;
+		i++;
+	}
 	mlx->tile[4] = mlx_load_png("image/door.png");
 	if (mlx->tile[4]->width != mlx->tile[4]->height)
-		write(1, "image not square\n", 15);
+		return (1);
 	return (0);
 }
 
@@ -78,6 +79,7 @@ int	main(int ac, char **av)
 	if (load_image(&mlx))
 	{
 		write(2, "Failed to load image\n", 21);
+		mlx_terminate(mlx.mlx);
 		exit(1);
 	}
 	mlx.start = 1;
