@@ -6,9 +6,10 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 10:20:15 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/10/02 19:22:19 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/10/02 19:28:04 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../includes/Cub3D.h"
 
@@ -77,7 +78,7 @@ void	set_value(t_mlx *mlx)
 	mlx->movey += BLOCSIZE / 2;
 	if (mlx->map_width > mlx->map_hight)
 		mlx->max = mlx->map_width;
-	mlx->angle = M_PI;
+	mlx->angle = get_type()->pa;
 }
 
 int	main(int ac, char **av)

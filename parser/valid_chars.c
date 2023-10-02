@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   valid_chars.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mtaib <mtaib@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 14:58:52 by mtaib             #+#    #+#             */
-/*   Updated: 2023/09/28 13:42:01 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/10/02 15:31:31 by mtaib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/Cub3D.h"
+#include <math.h>
 #include <stdio.h>
 
 int		is_valid_charset(char *str)
@@ -27,6 +28,20 @@ int		is_valid_charset(char *str)
 	return (0);
 }
 
+float	set_angle(char 	dir)
+{
+	float 	an;
+
+	if (dir == 'N')
+		an =  (3 * M_PI) / 2;
+	else if (dir == 'E')
+		an = 0;
+	else if (dir == 'S')
+		an = M_PI / 2;
+	else
+		an = M_PI;
+	return (an);
+}
 int		check_chars(char **map)
 {
 	int		i;
@@ -46,9 +61,9 @@ int		check_chars(char **map)
 			{
 				if (get_player()->x)
 					return (print_error(13));
+				get_type()->pa = set_angle(map[i][j]);
 				get_player()->x = j * BLOCSIZE;
 				get_player()->y = i * BLOCSIZE;
-				printf("here x = %d y = %d\n", get_player()->x, get_player()->y);
 				c = map[i][j];
 				map[i][j] = '0';
 			}
