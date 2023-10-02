@@ -6,12 +6,13 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 10:20:15 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/10/02 19:28:04 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/10/02 21:02:01 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../includes/Cub3D.h"
+#include <stdint.h>
 
 void	load_mlx(t_mlx *mlx)
 {
@@ -37,6 +38,25 @@ void	load_mlx(t_mlx *mlx)
 	mlx_image_to_window(mlx->mlx, mlx->minimap_img, 0, 0);
 }
 
+int	load_sprite(t_mlx *mlx)
+{
+	int		i;
+	char	*str;
+	char	*str1;
+
+	i = -1;
+	str = 0;
+	while (++i < 7)
+	{
+		str = ft_strjoin("fire/fire", ft_itoa(i + 1));
+		str1 = ft_strjoin(str, ".png");
+		free(str);
+		
+		mlx->sprite[i] = mlx_load_png(str);
+		free(str);
+	}
+}
+
 int	load_image(t_mlx *mlx)
 {
 	t_dirs *ptr;
@@ -54,6 +74,9 @@ int	load_image(t_mlx *mlx)
 	}
 	mlx->tile[4] = mlx_load_png("image/door.png");
 	if (mlx->tile[4]->width != mlx->tile[4]->height)
+		return (1);
+	mlx->tile[5] = mlx_load_png("image/wood.png");
+	if (mlx->tile[5]->width != mlx->tile[5]->height)
 		return (1);
 	return (0);
 }
@@ -92,7 +115,7 @@ int	main(int ac, char **av)
 		return (1);
 	set_value(&mlx);
 	load_mlx(&mlx);
-	if (load_image(&mlx))
+	if (load_image(&mlx) || load_sprite(&mlx))
 	{
 		write(2, "Failed to load image\n", 21);
 		free_allocated();

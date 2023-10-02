@@ -6,7 +6,7 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 14:43:21 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/10/02 18:59:01 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/10/02 20:47:42 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@
 # include <math.h>
 # include <stdio.h>
 
-# define WIDTH 1000
-# define HEIGHT 750
+# define WIDTH 1920
+# define HEIGHT 1080
 # define BLOCSIZE 64
 # define RESIZE 0.2
-# define RADIUS 80
+# define RADIUS 130
 # define ANGLE_SPEED 0.05
 # define PLAYER_SPEED 6
 # define FIELD_OF_VIEW 60
@@ -42,6 +42,7 @@ enum
 	RIGHT,
 	LEFT,
 	DOR,
+	DOR1,
 	X = 0,
 	Y
 };
@@ -64,6 +65,7 @@ typedef struct t_mlx
 	mlx_image_t		*img;
 	mlx_image_t		*minimap_img;
 	mlx_texture_t	*tile[6];
+	mlx_texture_t	*sprite[6];
 	mlx_t			*mlx;
 	t_ray			*ray;
 	mlx_image_t		*txt;
@@ -84,6 +86,7 @@ typedef struct t_mlx
 	float			rx;
 	float			ry;
 	float			ra;
+	int				l;
 }					t_mlx;
 
 typedef struct s_info

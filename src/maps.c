@@ -6,7 +6,7 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 13:11:12 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/10/02 19:09:23 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/10/02 20:20:55 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	draw_ray(t_mlx *mlx)
 	int		r;
 	float	ra;
 	float	distray;
-
+	static unsigned int l;
 	r = -1;
 	mlx->ray = &ray;
 	ray.angle_step = (FIELD_OF_VIEW * (M_PI / 180)) / WIDTH;
@@ -81,10 +81,16 @@ void	draw_ray(t_mlx *mlx)
 		calculate_horizontal(ra, mlx, &ray);
 		calculate_vertical(ra, mlx, &ray);
 		distray = small_dist(&ray, mlx);
-		draw_line(mlx->movex, mlx->movey, mlx->rx, mlx->ry, 0x00ff00ff);
 		draw_wall(mlx, &ray, r, distray);
 		ra += ray.angle_step;
 	}
+	if (l <= 12)
+		mlx->l = 0;
+	else
+	 	mlx->l = 1;
+	if (l > 24)
+		l = 0;
+	l++;
 }
 
 void	drow_player(void *ptr)
@@ -92,12 +98,12 @@ void	drow_player(void *ptr)
 	t_mlx	*mlx;
 
 	mlx = (t_mlx *)ptr;
-	if (mlx->start)
-	{
+	// if (mlx->start)
+	// {
 		ft_clean(mlx);
 		drow_map(mlx);
-		draw_ray(mlx);
 		draw_miniplayer(mlx);
+		draw_ray(mlx);
 		mlx->start = 0;
-	}
+	//}
 }
