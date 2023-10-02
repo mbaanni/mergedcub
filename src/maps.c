@@ -77,6 +77,7 @@ void	draw_ray(t_mlx *mlx)
 	while (++r < WIDTH)
 	{
 		ra = bound_angle(ra);
+		mlx->ra = ra;
 		calculate_horizontal(ra, mlx, &ray);
 		calculate_vertical(ra, mlx, &ray);
 		distray = small_dist(&ray, mlx);

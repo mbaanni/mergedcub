@@ -23,8 +23,8 @@
 # define WIDTH 1000
 # define HEIGHT 750
 # define BLOCSIZE 64
-# define RESIZE 1
-# define RADIUS 128
+# define RESIZE 0.2
+# define RADIUS 80
 # define ANGLE_SPEED 0.05
 # define PLAYER_SPEED 6
 # define FIELD_OF_VIEW 60
@@ -83,6 +83,7 @@ typedef struct t_mlx
 	char			**map;
 	float			rx;
 	float			ry;
+	float			ra;
 }					t_mlx;
 
 typedef struct s_info

@@ -54,9 +54,13 @@ void	check_dore(t_mlx *mlx)
 	int	mx;
 	int	my;
 
-	mx = mlx->ry / BLOCSIZE;
-	my = mlx->rx / BLOCSIZE;
-	if (mx > 0 && my > 0 && mx < mlx->map_width && my < mlx->map_hight
+	mx = mlx->rx / BLOCSIZE;
+	my = mlx->ry / BLOCSIZE;
+	if (mlx->side == RIGHT)
+		mx -= 1;
+	else if (mlx->side == BOTTOM)
+		my -= 1;
+	if (mx >= 0 && my >= 0 && mx < mlx->map_width && my < mlx->map_hight
 		&& mlx->map[my][mx] == 'C')
 		mlx->side = DOR;
 }

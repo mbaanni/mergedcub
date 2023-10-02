@@ -41,9 +41,12 @@ void	put_on_minimap(t_mlx *mlx, int x, int y, int color)
 	int	nx;
 	int	ny;
 
-	dx = mlx->movex - RADIUS;
-	dy = mlx->movey - RADIUS;
-	if (calculate_dist(mlx->movex, mlx->movey, x, y) <= RADIUS)
+	dx = (mlx->movex * RESIZE) - RADIUS;
+	dy = (mlx->movey * RESIZE) - RADIUS;
+	x *= RESIZE;
+	y *= RESIZE;
+	if (calculate_dist(mlx->movex * RESIZE, mlx->movey * RESIZE, x,
+			y) <= RADIUS)
 	{
 		nx = x - dx;
 		ny = y - dy;

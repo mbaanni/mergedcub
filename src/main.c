@@ -23,21 +23,21 @@ void	load_mlx(t_mlx *mlx)
 
 int	load_image(t_mlx *mlx)
 {
-	mlx->tile[0] = mlx_load_png("img/steel.png");
+	mlx->tile[0] = mlx_load_png("image/eagle.png");
 	if (mlx->tile[0]->width != mlx->tile[0]->height)
 		write(1, "Img not square\n", 15);
-	mlx->tile[1] = mlx_load_png("img/steel.png");
+	mlx->tile[1] = mlx_load_png("image/greystone.png");
 	if (mlx->tile[1]->width != mlx->tile[1]->height)
-		write(1, "Img not square\n", 15);
-	mlx->tile[2] = mlx_load_png("img/holeskin.png");
+		write(1, "image not square\n", 15);
+	mlx->tile[2] = mlx_load_png("image/bluestone.png");
 	if (mlx->tile[2]->width != mlx->tile[2]->height)
-		write(1, "Img not square\n", 15);
-	mlx->tile[3] = mlx_load_png("img/holeskin.png");
+		write(1, "image not square\n", 15);
+	mlx->tile[3] = mlx_load_png("image/redbrick.png");
 	if (mlx->tile[3]->width != mlx->tile[3]->height)
-		write(1, "Img not square\n", 15);
-	mlx->tile[4] = mlx_load_png("img/door.png");
+		write(1, "image not square\n", 15);
+	mlx->tile[4] = mlx_load_png("image/door.png");
 	if (mlx->tile[4]->width != mlx->tile[4]->height)
-		write(1, "Img not square\n", 15);
+		write(1, "image not square\n", 15);
 	return (0);
 }
 

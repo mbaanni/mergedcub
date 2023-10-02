@@ -32,7 +32,16 @@ void	set_point(t_mlx *mlx, float	*pos[2], float	*pblock[2], char flag)
 	}
 }
 
-void	last_wall_hit(t_mlx *mlx, char flag)
+int	next_block(char flag, char xy, float ra)
+{
+	if (flag == 'h' && xy == 'y')
+		return ((ra > M_PI));
+	if (flag == 'v' && xy == 'x')
+		return (ra > (M_PI / 2) && ra < (3 * M_PI / 2));
+	return (0);
+}
+
+void	last_wall_hit(t_mlx *mlx, char flag, float ra)
 {
 	int		inc;
 	int		mp[2];
@@ -43,8 +52,8 @@ void	last_wall_hit(t_mlx *mlx, char flag)
 	set_point(mlx, pos, pblock, flag);
 	while (++inc < mlx->max)
 	{
-		mp[X] = *pos[X] / BLOCSIZE;
-		mp[Y] = *pos[Y] / BLOCSIZE;
+		mp[X] = *pos[X] / BLOCSIZE - next_block(flag, 'x', ra);
+		mp[Y] = *pos[Y] / BLOCSIZE - next_block(flag, 'y', ra);
 		if (mp[Y] < 0 || mp[X] < 0 || mp[X] > mlx->map_width
 			|| mp[Y] > mlx->map_hight)
 			break ;
@@ -65,7 +74,7 @@ void	calculate_horizontal(float ra, t_mlx *mlx, t_ray *ray)
 	tang = -tan(ra);
 	if (ra > M_PI)
 	{
-		ray->hy = (int)(mlx->movey / BLOCSIZE) * BLOCSIZE - 0.001;
+		ray->hy = (int)(mlx->movey / BLOCSIZE) * BLOCSIZE;
 		ray->hyblock = -BLOCSIZE;
 	}
 	if (ra < M_PI)
@@ -75,7 +84,7 @@ void	calculate_horizontal(float ra, t_mlx *mlx, t_ray *ray)
 	}
 	ray->hx = mlx->movex + (mlx->movey - ray->hy) / tang;
 	ray->hxblock = -ray->hyblock / tang;
-	last_wall_hit(mlx, 'h');
+	last_wall_hit(mlx, 'h', ra);
 }
 
 void	calculate_vertical(float ra, t_mlx *mlx, t_ray *ray)
@@ -90,10 +99,10 @@ void	calculate_vertical(float ra, t_mlx *mlx, t_ray *ray)
 	}
 	if (ra > (M_PI / 2) && ra < (3 * M_PI / 2))
 	{
-		ray->vx = (int)(mlx->movex / BLOCSIZE) * BLOCSIZE - 0.001;
+		ray->vx = (int)(mlx->movex / BLOCSIZE) * BLOCSIZE;
 		ray->vxblock = -BLOCSIZE;
 	}
 	ray->vy = mlx->movey + (mlx->movex - ray->vx) * tang;
 	ray->vyblock = -ray->vxblock * tang;
-	last_wall_hit(mlx, 'v');
+	last_wall_hit(mlx, 'v', ra);
 }
