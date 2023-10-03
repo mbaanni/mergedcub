@@ -20,8 +20,8 @@
 # include <math.h>
 # include <stdio.h>
 
-# define WIDTH 1920
-# define HEIGHT 1080
+# define WIDTH 1000
+# define HEIGHT 700
 # define BLOCSIZE 64
 # define RESIZE 0.2
 # define RADIUS 130
@@ -65,7 +65,7 @@ typedef struct t_mlx
 	mlx_image_t		*img;
 	mlx_image_t		*minimap_img;
 	mlx_texture_t	*tile[6];
-	mlx_texture_t	*sprite[6];
+	mlx_texture_t	*sprite[8];
 	mlx_t			*mlx;
 	t_ray			*ray;
 	mlx_image_t		*txt;

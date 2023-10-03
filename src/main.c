@@ -18,41 +18,21 @@ void	load_mlx(t_mlx *mlx)
 {
 	mlx->mlx = mlx_init(WIDTH, HEIGHT, "MLX42", 0);
 	if (!mlx->mlx)
-	{
-		free_allocated();
-		exit(1);
-	}
+		custom_exit(1);
 	mlx->img = mlx_new_image(mlx->mlx, WIDTH, HEIGHT);
 	if (!mlx->img)
 	{
-		free_allocated();
-		exit(1);
+		mlx_terminate(mlx->mlx);
+		custom_exit(1);
 	}
 	mlx->minimap_img = mlx_new_image(mlx->mlx, WIDTH, HEIGHT);
 	if (!mlx->minimap_img)
 	{
-		free_allocated();
-		exit(1);
+		mlx_terminate(mlx->mlx);
+		custom_exit(1);
 	}
 	mlx_image_to_window(mlx->mlx, mlx->img, 0, 0);
 	mlx_image_to_window(mlx->mlx, mlx->minimap_img, 0, 0);
-}
-
-int	load_sprite(t_mlx *mlx)
-{
-	int		i;
-	char	*str;
-
-	i = -1;
-	str = 0;
-	while (++i < 7)
-	{
-		str = ft_strjoin("fire/fire", ft_itoa(i + 1));
-		mlx->sprite[i] = mlx_load_png(str);
-		if (!str)
-			return (1);
-	}
-	return (0);
 }
 
 int	load_image(t_mlx *mlx)
@@ -113,12 +93,11 @@ int	main(int ac, char **av)
 		return (1);
 	set_value(&mlx);
 	load_mlx(&mlx);
-	if (load_image(&mlx) || load_sprite(&mlx))
+	if (load_image(&mlx))
 	{
 		write(2, "Failed to load image\n", 21);
-		free_allocated();
 		mlx_terminate(mlx.mlx);
-		exit(1);
+		custom_exit(1);
 	}
 	mlx.start = 1;
 	mlx_key_hook(mlx.mlx, dor_click, &mlx);
