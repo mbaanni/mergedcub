@@ -6,7 +6,7 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 13:11:12 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/10/02 20:20:55 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/10/03 15:06:57 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,11 @@ void	draw_wall(t_mlx *mlx, t_ray *ray, int r, float distray)
 
 void	draw_ray(t_mlx *mlx)
 {
-	t_ray	ray;
-	int		r;
-	float	ra;
-	float	distray;
-	static unsigned int l;
+	t_ray				ray;
+	int					r;
+	float				ra;
+	float				distray;
+
 	r = -1;
 	mlx->ray = &ray;
 	ray.angle_step = (FIELD_OF_VIEW * (M_PI / 180)) / WIDTH;
@@ -84,13 +84,6 @@ void	draw_ray(t_mlx *mlx)
 		draw_wall(mlx, &ray, r, distray);
 		ra += ray.angle_step;
 	}
-	if (l <= 12)
-		mlx->l = 0;
-	else
-	 	mlx->l = 1;
-	if (l > 24)
-		l = 0;
-	l++;
 }
 
 void	drow_player(void *ptr)
@@ -98,12 +91,12 @@ void	drow_player(void *ptr)
 	t_mlx	*mlx;
 
 	mlx = (t_mlx *)ptr;
-	// if (mlx->start)
-	// {
+	if (mlx->start)
+	{
 		ft_clean(mlx);
 		drow_map(mlx);
 		draw_miniplayer(mlx);
 		draw_ray(mlx);
 		mlx->start = 0;
-	//}
+	}
 }

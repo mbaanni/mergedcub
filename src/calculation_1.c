@@ -6,7 +6,7 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:57:04 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/10/02 20:11:39 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/10/03 15:07:08 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,7 @@ void	check_dore(t_mlx *mlx)
 		my -= 1;
 	if (mx >= 0 && my >= 0 && mx < mlx->map_width && my < mlx->map_hight
 		&& mlx->map[my][mx] == 'C')
-	{
-		if (mlx->l)
-			mlx->side = DOR;
-		else
-		 	mlx->side = DOR1;
-	}
+		mlx->side = DOR;
 }
 
 float	small_dist(t_ray *ray, t_mlx *mlx)

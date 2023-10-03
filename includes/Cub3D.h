@@ -6,7 +6,7 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 14:43:21 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/10/02 20:47:42 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/10/03 15:06:28 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ typedef struct t_mlx
 	float			rx;
 	float			ry;
 	float			ra;
-	int				l;
 }					t_mlx;
 
 typedef struct s_info

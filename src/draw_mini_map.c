@@ -6,7 +6,7 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 13:09:20 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/09/27 14:51:09 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/10/03 15:05:10 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@ int	calculate_dist(int px, int py, int dstx1, int dsty1)
 	return (dist);
 }
 
-void	
-put_on_minimap(t_mlx *mlx, int x, int y, int color)
+void	put_on_minimap(t_mlx *mlx, int x, int y, int color)
 {
 	int	dx;
 	int	dy;

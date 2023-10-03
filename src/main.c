@@ -6,13 +6,11 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 10:20:15 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/10/02 21:02:01 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/10/03 15:05:39 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../includes/Cub3D.h"
-#include <stdint.h>
 
 void	load_mlx(t_mlx *mlx)
 {
@@ -37,7 +35,7 @@ void	load_mlx(t_mlx *mlx)
 
 int	load_image(t_mlx *mlx)
 {
-	t_dirs *ptr;
+	t_dirs	*ptr;
 	int		i;
 
 	i = 0;
