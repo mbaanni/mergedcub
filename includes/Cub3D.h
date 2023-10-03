@@ -6,7 +6,7 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 14:43:21 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/10/03 20:31:57 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/10/03 21:39:47 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # include <math.h>
 # include <stdio.h>
 
-# define WIDTH 1000
-# define HEIGHT 700
+# define WIDTH 1920
+# define HEIGHT 1080
 # define BLOCSIZE 64
 # define RESIZE 0.2
 # define RADIUS 130

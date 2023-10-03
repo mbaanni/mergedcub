@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtaib <mtaib@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 14:58:52 by mtaib             #+#    #+#             */
-/*   Updated: 2023/10/03 20:03:40 by mtaib            ###   ########.fr       */
+/*   Updated: 2023/10/03 21:49:33 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	check_map_errors(char **map)
 		return (1);
 	if (BONUS)
 	{
-		if (check_borders(map, 'C'))
+		if (check_borders(map, 'C') || check_borders(map, 'O'))
 			return (1);
 	}
 	return (0);

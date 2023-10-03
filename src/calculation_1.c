@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   calculation_1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtaib <mtaib@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:57:04 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/10/03 19:25:27 by mtaib            ###   ########.fr       */
+/*   Updated: 2023/10/03 21:38:47 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ float	wall_calculation(float *distray, float angle_step, int r, float *wall)
 	if (*distray < 0)
 		*distray = 1;
 	*distray = cos(30 * M_PI / 180 - (r * angle_step)) * (*distray);
-	wall_strip_hight = (BLOCSIZE / *distray) * 1200;
+	wall_strip_hight = (HEIGHT / *distray) * 100;
+	// wall_strip_hight = (BLOCSIZE / *distray) * 1200;
 	wall[START] = ((float)HEIGHT / 2) - (wall_strip_hight / 2);
 	wall[END] = ((float)HEIGHT / 2) + (wall_strip_hight / 2);
 	if (wall[START] < 0)

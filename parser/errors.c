@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtaib <mtaib@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 10:11:35 by mtaib             #+#    #+#             */
-/*   Updated: 2023/10/03 17:41:08 by mtaib            ###   ########.fr       */
+/*   Updated: 2023/10/03 21:50:52 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	print_map_error(int i)
 	else if (i == 14)
 		printf("\tNew line musnt be in map\n");
 	else if (i == 16)
-		printf("\tInvald map\n");
+		printf("\tInvalid map\n");
 }
 
 int	print_error(int i)
