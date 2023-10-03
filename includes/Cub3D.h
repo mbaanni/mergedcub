@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mtaib <mtaib@student.1337.ma>              +#+  +:+       +#+        */
+/*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 14:43:21 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/10/03 20:16:36 by mtaib            ###   ########.fr       */
+/*   Updated: 2023/10/03 20:31:57 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,8 @@ typedef struct s_mapinfo
 	t_dirs			*directions;
 	int				dirnbs;
 	char			**map;
-	int				c_color[3];
-	int				f_color[3];
+	int				*c_color;
+	int				*f_color;
 	int				max_x;
 	int				max_y;
 	float			pa;
@@ -158,7 +158,7 @@ int					empty_line(char *str);
 int					print_error(int i);
 void				print_map_error(int i);
 int					check_dirs(char dir, char *str);
-int					save_colors_value(char dir, char *str);
+int					save_colors_value(int i, int j, char dir, char *str);
 int					count_point(char *str);
 int					check_path(char *path);
 /*********************************/

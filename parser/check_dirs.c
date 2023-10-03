@@ -39,14 +39,13 @@ int	count_point(char *str)
 	return (count);
 }
 
-int	save_colors_value(char dir, char *str)
+int	save_colors_value(int i, int j, char dir, char *str)
 {
-	int	i;
-	int	j;
-	int	n[3];
+	int	*n;
 
-	j = -1;
-	i = 0;
+	n = my_alloc(3 * sizeof(int));
+	if (!n)
+		return (1);
 	while (str[i] && ++j < 3)
 	{
 		if (str[i] == ',')
@@ -61,9 +60,10 @@ int	save_colors_value(char dir, char *str)
 		if (str[i])
 			i++;
 	}
-	get_type()->c_color[j] = n[j];
-	if (dir == 'F')
-		get_type()->f_color[j] = n[j];
+	if (dir == 'C')
+		get_type()->c_color = n;
+	else
+		get_type()->f_color = n;
 	return (0);
 }
 
@@ -78,5 +78,5 @@ int	check_dirs(char dir, char *str)
 		if (!(str[i] >= '0' && str[i] <= '9') && str[i] != ',' && str[0] != '-'
 			&& str[i] != '+')
 			return (print_error(2));
-	return (save_colors_value(dir, str));
+	return (save_colors_value(0, -1, dir, str));
 }
