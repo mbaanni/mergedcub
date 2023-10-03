@@ -42,19 +42,17 @@ int	load_sprite(t_mlx *mlx)
 {
 	int		i;
 	char	*str;
-	char	*str1;
 
 	i = -1;
 	str = 0;
 	while (++i < 7)
 	{
 		str = ft_strjoin("fire/fire", ft_itoa(i + 1));
-		str1 = ft_strjoin(str, ".png");
-		free(str);
-		
 		mlx->sprite[i] = mlx_load_png(str);
-		free(str);
+		if (!str)
+			return (1);
 	}
+	return (0);
 }
 
 int	load_image(t_mlx *mlx)
