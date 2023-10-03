@@ -18,7 +18,7 @@ t_mapInfo*		get_type(void)
 
 	if (!mapInfo)
 	{
-		mapInfo = malloc(sizeof(t_mapInfo));
+		mapInfo = my_alloc(sizeof(t_mapInfo));
 		if (!mapInfo)
 			return (0);
 		mapInfo->directions = NULL;
@@ -34,7 +34,7 @@ t_player*	get_player(void)
 
 	if (!player)
 	{
-		player = malloc(sizeof(t_player));
+		player = my_alloc(sizeof(t_player));
 		if (!player)
 			return (0);
 		player->x = 0;

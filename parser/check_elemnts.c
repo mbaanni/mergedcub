@@ -97,7 +97,7 @@ int		check_elements(char	*str)
 	while (arg[++i])
 		if (arg[i] == ' ' || arg[i] == '\t')
 			break ;
-	params = malloc(sizeof(char *) * 3);
+	params = my_alloc(sizeof(char *) * 3);
 	if (!params)
 		return (1);
 	params[0] = ft_substr(arg, 0, i);
@@ -109,6 +109,6 @@ int		check_elements(char	*str)
 		return (print_error(1));
 	params[1] = ft_substr(arg, i , ft_strlen(arg));
 	params[2] = NULL; 
-	return (free(str), check_params(params));	
+	return (check_params(params));
 }
 // when count all dirs and do a duplication , print specific error

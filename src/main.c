@@ -45,7 +45,7 @@ int	load_image(t_mlx *mlx)
 	while (ptr && i < 4)
 	{
 		mlx->tile[i] = mlx_load_png(ptr->path);
-		if (mlx->tile[i]->width != mlx->tile[i]->height)
+		if (!mlx->tile[i] || mlx->tile[i]->width != mlx->tile[i]->height)
 			return (1);
 		ptr = ptr->next;
 		i++;
@@ -104,6 +104,6 @@ int	main(int ac, char **av)
 	mlx_loop_hook(mlx.mlx, event_win, &mlx);
 	mlx_loop_hook(mlx.mlx, drow_player, &mlx);
 	mlx_loop(mlx.mlx);
-	free_allocated();
 	mlx_terminate(mlx.mlx);
+	custom_exit(0);
 }
