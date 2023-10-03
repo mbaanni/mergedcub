@@ -6,7 +6,7 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:57:04 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/10/03 15:07:08 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/10/03 18:19:25 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ float	wall_calculation(float *distray, float angle_step, int r, float *wall)
 		*distray = 1;
 	*distray = cos(30 * M_PI / 180 - (r * angle_step)) * (*distray);
 	wall_strip_hight = (BLOCSIZE / *distray) * 1200;
-	wall[START] = (HEIGHT / 2) - (wall_strip_hight / 2);
-	wall[END] = (HEIGHT / 2) + (wall_strip_hight / 2);
+	wall[START] = ((float)HEIGHT / 2) - (wall_strip_hight / 2);
+	wall[END] = ((float)HEIGHT / 2) + (wall_strip_hight / 2);
 	if (wall[START] < 0)
 		wall[START] = 0;
 	return (wall_strip_hight);
@@ -54,15 +54,18 @@ void	check_dore(t_mlx *mlx)
 	int	mx;
 	int	my;
 
-	mx = mlx->rx / BLOCSIZE;
-	my = mlx->ry / BLOCSIZE;
-	if (mlx->side == RIGHT)
-		mx -= 1;
-	else if (mlx->side == BOTTOM)
-		my -= 1;
-	if (mx >= 0 && my >= 0 && mx < mlx->map_width && my < mlx->map_hight
-		&& mlx->map[my][mx] == 'C')
-		mlx->side = DOR;
+	if (BONUS)
+	{
+		mx = mlx->rx / BLOCSIZE;
+		my = mlx->ry / BLOCSIZE;
+		if (mlx->side == RIGHT)
+			mx -= 1;
+		else if (mlx->side == BOTTOM)
+			my -= 1;
+		if (mx >= 0 && my >= 0 && mx < mlx->map_width && my < mlx->map_hight
+			&& mlx->map[my][mx] == 'C')
+			mlx->side = DOR;
+	}
 }
 
 float	small_dist(t_ray *ray, t_mlx *mlx)

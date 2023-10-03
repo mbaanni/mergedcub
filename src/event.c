@@ -6,7 +6,7 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 10:00:26 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/10/02 19:06:31 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/10/03 15:57:08 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,23 +68,18 @@ void	check_next_xy(t_mlx *mlx, int x, int y)
 
 void	player_movement(t_mlx *mlx)
 {
-	int	x;
-
-	x = 1;
-	if (mlx_is_key_down(mlx->mlx, MLX_KEY_R))
-		x = 2;
 	if (mlx_is_key_down(mlx->mlx, MLX_KEY_W))
-		check_next_xy(mlx, cos(mlx->angle) * PLAYER_SPEED * x, sin(mlx->angle)
-			* PLAYER_SPEED * x);
+		check_next_xy(mlx, cos(mlx->angle) * PLAYER_SPEED, sin(mlx->angle)
+			* PLAYER_SPEED);
 	else if (mlx_is_key_down(mlx->mlx, MLX_KEY_S))
-		check_next_xy(mlx, -cos(mlx->angle) * PLAYER_SPEED * x, -sin(mlx->angle)
-			* PLAYER_SPEED * x);
+		check_next_xy(mlx, -cos(mlx->angle) * PLAYER_SPEED, -sin(mlx->angle)
+			* PLAYER_SPEED);
 	else if (mlx_is_key_down(mlx->mlx, MLX_KEY_D))
-		check_next_xy(mlx, cos(mlx->angle + M_PI / 2) * PLAYER_SPEED * x,
-			sin(mlx->angle + M_PI / 2) * PLAYER_SPEED * x);
+		check_next_xy(mlx, cos(mlx->angle + M_PI / 2) * PLAYER_SPEED,
+			sin(mlx->angle + M_PI / 2) * PLAYER_SPEED);
 	else if (mlx_is_key_down(mlx->mlx, MLX_KEY_A))
-		check_next_xy(mlx, cos(mlx->angle - M_PI / 2) * PLAYER_SPEED * x,
-			sin(mlx->angle - M_PI / 2) * PLAYER_SPEED * x);
+		check_next_xy(mlx, cos(mlx->angle - M_PI / 2) * PLAYER_SPEED,
+			sin(mlx->angle - M_PI / 2) * PLAYER_SPEED);
 }
 
 void	player_angle(t_mlx *mlx)
@@ -118,5 +113,6 @@ void	event_win(void *param)
 	}
 	player_movement(mlx);
 	player_angle(mlx);
-	mouse_scroll(mlx);
+	if (BONUS)
+		mouse_scroll(mlx);
 }

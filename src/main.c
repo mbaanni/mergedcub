@@ -6,7 +6,7 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 10:20:15 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/10/03 15:05:39 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/10/03 17:59:59 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,12 @@ int	load_image(t_mlx *mlx)
 		ptr = ptr->next;
 		i++;
 	}
-	mlx->tile[4] = mlx_load_png("image/door.png");
-	if (mlx->tile[4]->width != mlx->tile[4]->height)
-		return (1);
-	mlx->tile[5] = mlx_load_png("image/wood.png");
-	if (mlx->tile[5]->width != mlx->tile[5]->height)
-		return (1);
+	if (BONUS)
+	{
+		mlx->tile[4] = mlx_load_png("image/door.png");
+		if (mlx->tile[4]->width != mlx->tile[4]->height)
+			return (1);
+	}
 	return (0);
 }
 
@@ -98,7 +98,10 @@ int	main(int ac, char **av)
 		custom_exit(1);
 	}
 	mlx.start = 1;
-	mlx_key_hook(mlx.mlx, dor_click, &mlx);
+	if (BONUS)
+	{
+		mlx_key_hook(mlx.mlx, dor_click, &mlx);
+	}
 	mlx_loop_hook(mlx.mlx, event_win, &mlx);
 	mlx_loop_hook(mlx.mlx, drow_player, &mlx);
 	mlx_loop(mlx.mlx);
