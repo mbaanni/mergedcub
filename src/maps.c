@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   maps.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mtaib <mtaib@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 13:11:12 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/10/03 16:09:41 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/10/03 19:37:21 by mtaib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/Cub3D.h"
+#include <stdint.h>
 
 float	dist(float px, float py, float rx, float ry)
 {
@@ -29,9 +30,13 @@ void	draw_block(mlx_image_t *img, int start, int end, int ray)
 	uint32_t	color;
 
 	if (start == 0)
-		color = 0x45b3e0ff;
+	{
+		color = get_type()->c_color[0] << 24 | get_type()->c_color[1] << 16 | get_type()->c_color[2] << 8 | 255;
+	}
 	else
-		color = 0xffffff00;
+	{
+		color = get_type()->f_color[0] << 24 | get_type()->f_color[1] << 16 | get_type()->f_color[2] << 8 | 255;
+	}
 	while (start < end)
 	{
 		mlx_put_pixel(img, ray, start, color);

@@ -1,12 +1,8 @@
 
 OS = $(shell uname)
-LIBMLX = ./42mx
-ifeq ($(OS),Linux)
-	LIBS = $(LIBMLX)/build/libmlx42.a -Iinclude -ldl -lglfw -pthread -lm
-else
-	LIBS = $(LIBMLX)/build/libmlx42.a -ldl -lglfw -L"$(HOME)/.brew/Cellar/glfw/3.3.8/lib" -pthread -lm -framework Cocoa -framework OpenGL -framework IOKit
-endif
-CFLAG= -O3 -Ofast -flto   -Wall -Wextra -Werror -g -fsanitize=address 
+LIBMLX = ./MLX
+LIBS = $(LIBMLX)/libmlx42.a -ldl -lglfw -L"$(HOME)/.brew/Cellar/glfw/3.3.8/lib" -pthread -lm -framework Cocoa -framework OpenGL -framework IOKit
+CFLAG= -O3 -Ofast -flto   -Wall -Wextra -Werror
 HEADER = -I ./includes -I $(LIBMLX)/include
 CC= cc
 SRC= main.c event.c maps.c calculation.c draw_mini_map.c dor.c miniplayer.c calculation_1.c
@@ -26,9 +22,6 @@ B = 0
 all : $(NAME)
 
 bonus : $(BNAME)
-libmlx:
-	@cmake $(LIBMLX) -B $(LIBMLX)/build
-	@make -C $(LIBMLX)/build/.
 
 $(NAME) : $(OBG)
 	@make -C libft > /dev/null

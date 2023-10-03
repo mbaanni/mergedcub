@@ -6,7 +6,7 @@
 /*   By: mtaib <mtaib@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 16:35:14 by mtaib             #+#    #+#             */
-/*   Updated: 2023/10/03 17:52:15 by mtaib            ###   ########.fr       */
+/*   Updated: 2023/10/03 19:20:37 by mtaib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_mapinfo	*get_type(void)
 			return (0);
 		mapinfo->directions = NULL;
 		mapinfo->map = NULL;
-		mapinfo->dirNbs = 0;
+		mapinfo->dirnbs = 0;
 		mapinfo->p_value = 0;
 	}
 	return (mapinfo);

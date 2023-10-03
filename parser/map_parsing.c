@@ -6,7 +6,7 @@
 /*   By: mtaib <mtaib@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 14:58:52 by mtaib             #+#    #+#             */
-/*   Updated: 2023/10/03 17:50:48 by mtaib            ###   ########.fr       */
+/*   Updated: 2023/10/03 20:16:10 by mtaib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,11 @@ int	handle_map(int fd)
 			break ;
 		if (line[0] != '\n')
 			str = ft_strjoin(str, line);
-		if (str && line[0] == '\n')
+		if (str && empty_line(line))
+		{
 			if (check_newline(fd, str))
 				return (1);
+		}
 	}
 	if (!str)
 		return (print_error(9));
@@ -81,12 +83,12 @@ int	check_file_content(int fd)
 		line = get_next_line(fd);
 		if (!line)
 			break ;
-		if (get_type()->dirNbs < 6 && ft_strchr("10", line[0])
+		if (get_type()->dirnbs < 6 && ft_strchr("10", line[0])
 			&& !ft_strchr(line, ','))
 			return (print_error(12));
 		if (check_elements(line))
 			return (1);
-		if (get_type()->dirNbs == 6)
+		if (get_type()->dirnbs == 6)
 		{
 			if (handle_map(fd))
 				return (1);

@@ -6,7 +6,7 @@
 /*   By: mtaib <mtaib@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 14:58:52 by mtaib             #+#    #+#             */
-/*   Updated: 2023/10/03 17:53:09 by mtaib            ###   ########.fr       */
+/*   Updated: 2023/10/03 19:17:25 by mtaib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,11 @@ int	is_valid_charset(char *str)
 	i = -1;
 	while (str[++i])
 	{
-		if (str[i] != '1' && str[i] != '0' && str[i] != ' '
-			&& !ft_strchr("NSEWCO", str[i])) //added 'CO'
+		if (BONUS && (str[i] != '1' && str[i] != '0' && str[i] != ' '
+				&& !ft_strchr("NSEWCO", str[i])))
+			return (1);
+		else if (!BONUS && (str[i] != '1' && str[i] != '0' && str[i] != ' '
+				&& !ft_strchr("NSEW", str[i])))
 			return (1);
 	}
 	return (0);

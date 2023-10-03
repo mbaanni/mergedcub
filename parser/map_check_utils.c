@@ -6,7 +6,7 @@
 /*   By: mtaib <mtaib@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 15:15:14 by mtaib             #+#    #+#             */
-/*   Updated: 2023/10/03 17:41:49 by mtaib            ###   ########.fr       */
+/*   Updated: 2023/10/03 20:17:54 by mtaib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,18 @@ int	valid_borders(int i, int j)
 			&& map[i][j + 1] == ' '))
 		return (print_error(6));
 	return (0);
+}
+
+int	empty_line(char *str)
+{
+	int		i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] != '\n' && str[i] != ' ' && str[i] != '\t')
+			return (0);
+		i++;
+	}
+	return (1);
 }

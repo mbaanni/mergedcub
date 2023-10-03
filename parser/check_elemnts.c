@@ -6,7 +6,7 @@
 /*   By: mtaib <mtaib@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 15:15:14 by mtaib             #+#    #+#             */
-/*   Updated: 2023/10/03 17:39:29 by mtaib            ###   ########.fr       */
+/*   Updated: 2023/10/03 19:20:18 by mtaib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	check_params(char **params)
 			return (1);
 	if (check_duplicates(get_type()->directions, params[0]))
 		return (print_error(3));
-	get_type()->dirNbs++;
+	get_type()->dirnbs++;
 	lstadd_back(&get_type()->directions, lstnew(params[0], params[1]));
 	return (0);
 }

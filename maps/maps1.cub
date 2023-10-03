@@ -3,11 +3,9 @@ NO image/greystone.png
 EA image/bluestone.png
 SO image/redbrick.png
 
-C 100,30,150
-F 150,50,25
+C 0,0,255
+F 255,0,0
 
-                            1111111111111
- 
                             1111111111111                      
      111111                 1000000000001                      
      100001      1111111111110000000000011111                  

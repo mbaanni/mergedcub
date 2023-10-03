@@ -6,7 +6,7 @@
 /*   By: mtaib <mtaib@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 14:58:52 by mtaib             #+#    #+#             */
-/*   Updated: 2023/10/03 17:40:40 by mtaib            ###   ########.fr       */
+/*   Updated: 2023/10/03 20:03:40 by mtaib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,10 @@ int	check_map_errors(char **map)
 		return (1);
 	if (check_borders(map, '0'))
 		return (1);
-	//if bonus
-	if (check_borders(map, 'C'))
-		return (1);
-	////
+	if (BONUS)
+	{
+		if (check_borders(map, 'C'))
+			return (1);
+	}
 	return (0);
 }

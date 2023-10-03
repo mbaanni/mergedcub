@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   Cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mtaib <mtaib@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 14:43:21 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/10/03 18:52:24 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/10/03 20:16:36 by mtaib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "../42mx/include/MLX42/MLX42.h"
+# include "../MLX/MLX42.h"
 # include "../libft/get_next_line.h"
 # include "../libft/libft.h"
 # include <fcntl.h>
@@ -28,9 +28,10 @@
 # define ANGLE_SPEED 0.05
 # define PLAYER_SPEED 12
 # define FIELD_OF_VIEW 60
-#ifndef BONUS
-# define BONUS 0
-#endif
+# ifndef BONUS
+#  define BONUS 0
+# endif
+
 enum
 {
 	NO,
@@ -108,7 +109,7 @@ typedef struct s_dirs
 typedef struct s_mapinfo
 {
 	t_dirs			*directions;
-	int				dirNbs;
+	int				dirnbs;
 	char			**map;
 	int				c_color[3];
 	int				f_color[3];
@@ -151,8 +152,8 @@ int					check_borders(char **map, char c);
 int					max_len(void);
 int					check_file_name(char *str);
 void				print_map_error(int i);
-int					print_error(int	i);
-
+int					print_error(int i);
+int					empty_line(char *str);
 /*************CHECK DIRECTIONS************/
 int					print_error(int i);
 void				print_map_error(int i);
@@ -177,8 +178,6 @@ int					creat_block(t_mlx *mlx);
 void				dor_click(mlx_key_data_t key, void *ptr);
 void				put_on_minimap(t_mlx *mlx, int x, int y, int color);
 int					drow_map(t_mlx *mlx);
-void				draw_line(int startx, int starty, int endx, int endy,
-						int color);
 void				calculate_vertical(float ra, t_mlx *mlx, t_ray *ray);
 void				draw_miniplayer(t_mlx *mlx);
 void				calculate_horizontal(float ra, t_mlx *mlx, t_ray *ray);
@@ -190,6 +189,4 @@ float				small_dist(t_ray *ray, t_mlx *mlx);
 uint32_t			get_color(t_mlx *mlx, int y, int x);
 float				small_dist(t_ray *ray, t_mlx *mlx);
 /**************************************************/
-void   	free_2d(char **str);
-void	free_allocated();
 #endif
