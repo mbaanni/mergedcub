@@ -6,7 +6,7 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 14:43:21 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/10/03 17:58:08 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/10/03 18:52:24 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,20 +105,22 @@ typedef struct s_dirs
 	struct s_dirs	*next;
 }					t_dirs;
 
-typedef struct s_mapInfo
+typedef struct s_mapinfo
 {
 	t_dirs			*directions;
 	int				dirNbs;
 	char			**map;
-	int				colors[3];
+	int				c_color[3];
+	int				f_color[3];
 	int				max_x;
 	int				max_y;
 	float			pa;
+	char			p_value;
 	mlx_t			*init;
 	mlx_image_t		*img;
 	t_mlx			*mlx;
 
-}					t_mapInfo;
+}					t_mapinfo;
 
 typedef struct s_player
 {
@@ -127,17 +129,19 @@ typedef struct s_player
 }					t_player;
 
 /*********MAP PARSING*************/
-
+int					is_all_value(char *str, char c);
+int					check_door_borders(int i, int j);
+int					valid_borders(int i, int j);
 int					ft_parse(char *str);
 int					check_path(char *str);
 int					is_direction(char *str);
 int					check_elements(char *str);
 int					check_directions(char *str);
-t_mapInfo			*get_type(void);
+t_mapinfo			*get_type(void);
 void				ft_intersection(void *ptr);
 int					print_error(int i);
 void				ft_move(void *arg);
-int					check_chars(char **map);
+int					check_chars(char **map, int i, int j);
 int					is_valid_charset(char *str);
 void				print_map(void);
 t_player			*get_player(void);
@@ -146,12 +150,14 @@ int					check_map_errors(char **map);
 int					check_borders(char **map, char c);
 int					max_len(void);
 int					check_file_name(char *str);
+void				print_map_error(int i);
+int					print_error(int	i);
 
 /*************CHECK DIRECTIONS************/
 int					print_error(int i);
 void				print_map_error(int i);
-int					check_dirs(char *str);
-int					save_colors_value(char *str);
+int					check_dirs(char dir, char *str);
+int					save_colors_value(char dir, char *str);
 int					count_point(char *str);
 int					check_path(char *path);
 /*********************************/

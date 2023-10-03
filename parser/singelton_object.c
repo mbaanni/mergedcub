@@ -3,34 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   singelton_object.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mtaib <mtaib@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 16:35:14 by mtaib             #+#    #+#             */
-/*   Updated: 2023/09/28 13:40:51 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/10/03 17:52:15 by mtaib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/Cub3D.h"
 
-t_mapInfo*		get_type(void)
+t_mapinfo	*get_type(void)
 {
-	static t_mapInfo 	*mapInfo;
+	static t_mapinfo	*mapinfo;
 
-	if (!mapInfo)
+	if (!mapinfo)
 	{
-		mapInfo = my_alloc(sizeof(t_mapInfo));
-		if (!mapInfo)
+		mapinfo = my_alloc(sizeof(t_mapinfo));
+		if (!mapinfo)
 			return (0);
-		mapInfo->directions = NULL;
-		mapInfo->map = NULL;
-		mapInfo->dirNbs = 0;
+		mapinfo->directions = NULL;
+		mapinfo->map = NULL;
+		mapinfo->dirNbs = 0;
+		mapinfo->p_value = 0;
 	}
-	return (mapInfo);
+	return (mapinfo);
 }
 
-t_player*	get_player(void)
+t_player	*get_player(void)
 {
-	static t_player *player;
+	static t_player	*player;
 
 	if (!player)
 	{

@@ -6,7 +6,7 @@
 /*   By: mtaib <mtaib@student.1337.ma>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 14:58:52 by mtaib             #+#    #+#             */
-/*   Updated: 2023/10/02 14:04:30 by mtaib            ###   ########.fr       */
+/*   Updated: 2023/10/03 17:50:48 by mtaib            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_square(char **map)
 	}
 }
 
-int		check_newline(int fd, char *str)
+int	check_newline(int fd, char *str)
 {
 	char	*line;
 
@@ -43,10 +43,10 @@ int		check_newline(int fd, char *str)
 		if (line[0] != '\n' && !is_all_value(line, ' '))
 			return (print_error(16));
 	}
-	return (0);	
+	return (0);
 }
 
-int		handle_map(int	fd)
+int	handle_map(int fd)
 {
 	char	*line;
 	char	*str;
@@ -65,32 +65,24 @@ int		handle_map(int	fd)
 	}
 	if (!str)
 		return (print_error(9));
-	get_type()->map = ft_split(str, '\n');
+	(get_type())->map = ft_split(str, '\n');
 	ft_square(get_type()->map);
 	if (check_map_errors(get_type()->map))
 		return (1);
-	/*int		i;
-	char	**map;
-
-	map = get_type()->map;
-	i = -1;
-	while (map[++i])
-		printf("--%s--\n",map[i]);*/
 	return (0);
 }
 
-int		check_file_content(int 	fd)
+int	check_file_content(int fd)
 {
 	char	*line;
-	
+
 	while (1)
 	{
 		line = get_next_line(fd);
 		if (!line)
 			break ;
-		if (get_type()->dirNbs < 6
-				&& ft_strchr("10", line[0])
-				&& !ft_strchr(line, ','))
+		if (get_type()->dirNbs < 6 && ft_strchr("10", line[0])
+			&& !ft_strchr(line, ','))
 			return (print_error(12));
 		if (check_elements(line))
 			return (1);
@@ -104,10 +96,10 @@ int		check_file_content(int 	fd)
 	return (0);
 }
 
-int		ft_parse(char *str)
+int	ft_parse(char *str)
 {
-	int		fd;
-	
+	int	fd;
+
 	if (check_file_name(str))
 		return (print_error(10));
 	fd = open(str, O_RDONLY);

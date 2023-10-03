@@ -13,7 +13,7 @@
 #include "../includes/Cub3D.h"
 #include <stdio.h>
 
-int		check_path(char *path)
+int	check_path(char *path)
 {
 	mlx_texture_t	*ptr;
 
@@ -24,10 +24,10 @@ int		check_path(char *path)
 	return (0);
 }
 
-int		count_point(char *str)
+int	count_point(char *str)
 {
-	int		i;
-	int		count;
+	int	i;
+	int	count;
 
 	count = 0;
 	i = -1;
@@ -39,20 +39,19 @@ int		count_point(char *str)
 	return (count);
 }
 
-int		save_colors_value(char *str)
+int	save_colors_value(char dir, char *str)
 {
 	int	i;
 	int	j;
-	int		n[3];
+	int	n[3];
 
-	j = 0;
+	j = -1;
 	i = 0;
-	while(str[i])
+	while (str[i] && ++j < 3)
 	{
 		if (str[i] == ',')
 			return (print_error(2));
 		n[j] = ft_atoi(&str[i]);
-		get_type()->colors[j] = n[j];
 		if (n[j] < 0 || n[j] > 255)
 			return (print_error(2));
 		while (str[i] && str[i] != ',')
@@ -61,65 +60,23 @@ int		save_colors_value(char *str)
 			return (print_error(2));
 		if (str[i])
 			i++;
-		if (j < 3)
-			j++;
 	}
+	get_type()->c_color[j] = n[j];
+	if (dir == 'F')
+		get_type()->f_color[j] = n[j];
 	return (0);
 }
 
-int		check_dirs(char *str)
+int	check_dirs(char dir, char *str)
 {
-	int		i;
+	int	i;
 
 	i = -1;
 	if (count_point(str) != 2)
 		return (print_error(2));
 	while (str[++i])
-		if (!(str[i] >= '0' && str[i] <= '9')
-			&& str[i] != ','  && str[0] != '-'
+		if (!(str[i] >= '0' && str[i] <= '9') && str[i] != ',' && str[0] != '-'
 			&& str[i] != '+')
 			return (print_error(2));
-	return (save_colors_value(str));
+	return (save_colors_value(dir, str));
 }
-
-void		print_map_error(int i)
-{
-	if (i == 5)
-		printf("\tmap must be surounded by walls\n");
-	else if (i == 6)
-		printf("\tInvalid borders\n");
-	else if (i == 7)
-		printf("\tInvalid player value\n");
-	else if (i == 9)
-		printf("\tMap not found\n");
-	else if (i == 12)
-			printf("\tInvalid map position\n");
-	else if (i == 13)
-			printf("\tDuplicated player value\n");
-	else if (i == 14)
-			printf("\tNew line musnt be in map\n");
-	else if (i == 16)
-			printf("\tInvald map\n");
-}
-
-int		print_error(int	i)
-{
-	printf("Error :\n");
-	if (i == 0)
-		printf("\tInvalid direction\n");
-	else if (i == 1)
-		printf("\tDoes not has a color value\n");
-	else if (i == 2)
-		printf("\tInvalid color value\n");
-	else if (i == 3)
-		printf("\tDuplication error\n");
-	else if (i == 4)
-		printf("\tInvalid path\n");
-	else if (i == 10)
-		printf("\tInvalid file name\n)");
-	else if (i == 11)
-		printf("\tBad file descriptor\n");
-	print_map_error(i);
-	return (1);
-}
-

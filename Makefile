@@ -10,7 +10,7 @@ CFLAG= -O3 -Ofast -flto   -Wall -Wextra -Werror -g -fsanitize=address
 HEADER = -I ./includes -I $(LIBMLX)/include
 CC= cc
 SRC= main.c event.c maps.c calculation.c draw_mini_map.c dor.c miniplayer.c calculation_1.c
-PRC= check_elemnts.c free_elements.c  linkedlist_utils.c map_parsing.c singelton_object.c valid_chars.c check_dirs.c check_map.c
+PRC= check_elemnts.c linkedlist_utils.c map_parsing.c singelton_object.c valid_chars.c check_dirs.c check_map.c errors.c map_check_utils.c
 NAME= Cub3d
 BNAME= Cub3d_bonus
 DIR_SRC = src/

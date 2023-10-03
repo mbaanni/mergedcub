@@ -12,7 +12,7 @@
 
 #include "../includes/Cub3D.h"
 
-t_dirs		*lstnew(char	 *key, char *path)
+t_dirs	*lstnew(char *key, char *path)
 {
 	t_dirs	*newnode;
 
@@ -39,5 +39,3 @@ void	lstadd_back(t_dirs **lst, t_dirs *newnode)
 	else
 		*lst = newnode;
 }
-
-
