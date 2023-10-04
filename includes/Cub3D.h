@@ -6,7 +6,7 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 14:43:21 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/10/04 08:44:57 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/10/04 09:41:26 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define RESIZE 0.2
 # define RADIUS 130
 # define ANGLE_SPEED 0.05
-# define PLAYER_SPEED 0
+# define PLAYER_SPEED 16
 # define FIELD_OF_VIEW 60
 # ifndef BONUS
 #  define BONUS 0
