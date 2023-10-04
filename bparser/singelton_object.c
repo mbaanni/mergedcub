@@ -6,7 +6,7 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 16:35:14 by mtaib             #+#    #+#             */
-/*   Updated: 2023/10/04 08:21:24 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/10/04 13:46:39 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_mapinfo	*get_type(void)
 			return (0);
 		mapinfo->directions = NULL;
 		mapinfo->map = NULL;
+		mapinfo->p_value = '\0';
 		mapinfo->dirnbs = 0;
 		mapinfo->p_value = 0;
 	}

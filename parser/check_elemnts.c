@@ -6,7 +6,7 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 15:15:14 by mtaib             #+#    #+#             */
-/*   Updated: 2023/10/03 21:42:57 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/10/04 11:42:05 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,11 @@ int	check_params(char **params)
 	if (is_direction(params[0]))
 		return (print_error(0));
 	if (params[0][0] == 'C' || params[0][0] == 'F')
+	{
 		if (check_dirs(params[0][0], params[1]))
 			return (1);
-	if (params[0][0] != 'C' && params[0][0] != 'F')
+	}
+	else if (params[0][0] != 'C' && params[0][0] != 'F')
 		if (check_path(params[1]))
 			return (1);
 	if (check_duplicates(get_type()->directions, params[0]))

@@ -91,7 +91,7 @@ int	check_dirs(char dir, char *str)
 		return (print_error(2));
 	while (str[++i])
 		if (!(str[i] >= '0' && str[i] <= '9') && str[i] != ','
-			&& str[i] != '+')
+			&& str[i] != '+' && str[i] != ' ')
 			return (print_error(2));
 	return (save_colors_value(0, -1, dir, str));
 }
