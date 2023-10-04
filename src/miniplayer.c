@@ -6,11 +6,23 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:50:25 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/09/29 19:07:31 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/10/04 08:44:44 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/Cub3D.h"
+
+void	delete_texter(t_mlx *mlx)
+{
+	int	i;
+
+	i = 0;
+	while (mlx->tile[i] && i < 4)
+	{
+		mlx_delete_texture(mlx->tile[i]);
+		i++;
+	}
+}
 
 void	draw_miniplayer(t_mlx *mlx)
 {

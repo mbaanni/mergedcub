@@ -6,7 +6,7 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 10:20:15 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/10/04 08:25:25 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/10/04 08:46:38 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ int	main(int ac, char **av)
 	if (load_image(&mlx))
 	{
 		write(2, "Failed to load image\n", 21);
+		delete_texter(&mlx);
 		mlx_terminate(mlx.mlx);
 		custom_exit(1);
 	}
@@ -103,6 +104,7 @@ int	main(int ac, char **av)
 	mlx_loop_hook(mlx.mlx, event_win, &mlx);
 	mlx_loop_hook(mlx.mlx, drow_player, &mlx);
 	mlx_loop(mlx.mlx);
+	delete_texter(&mlx);
 	mlx_terminate(mlx.mlx);
 	custom_exit(0);
 }

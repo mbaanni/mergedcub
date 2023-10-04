@@ -6,7 +6,7 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 14:43:21 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/10/04 07:47:20 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/10/04 08:44:57 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,6 +184,7 @@ int					calculate_dist(int px, int py, int dstx1, int dsty1);
 float				wall_calculation(float *distray, float angle_step, int r,
 						float *wall);
 float				bound_angle(float angle);
+void				delete_texter(t_mlx *mlx);
 float				small_dist(t_ray *ray, t_mlx *mlx);
 uint32_t			get_color(t_mlx *mlx, int y, int x);
 float				small_dist(t_ray *ray, t_mlx *mlx);

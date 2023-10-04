@@ -6,7 +6,7 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 10:00:26 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/10/04 08:21:50 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/10/04 08:47:10 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ void	event_win(void *param)
 	if (mlx_is_key_down(mlx->mlx, MLX_KEY_ESCAPE))
 	{
 		mlx_close_window(mlx->mlx);
+		delete_texter(mlx);
 		mlx_terminate(mlx->mlx);
 		custom_exit(1);
 	}
