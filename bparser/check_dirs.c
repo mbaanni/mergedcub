@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/Cub3D.h"
+#include "../includes/Cub3D_bonus.h"
 
 int	check_path(char *path)
 {

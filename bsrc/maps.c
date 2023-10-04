@@ -6,11 +6,11 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 13:11:12 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/10/04 08:25:15 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/10/04 08:21:58 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/Cub3D.h"
+#include "../includes/Cub3D_bonus.h"
 
 float	dist(float px, float py, float rx, float ry)
 {

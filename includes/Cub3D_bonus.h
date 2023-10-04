@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Cub3D.h                                            :+:      :+:    :+:   */
+/*   Cub3D_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 14:43:21 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/10/04 07:47:20 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/10/04 08:24:27 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef CUB3D_BONUS_H
+# define CUB3D_BONUS_H
 
 # include "../MLX/MLX42.h"
 # include "../libft/get_next_line.h"
@@ -29,7 +29,7 @@
 # define PLAYER_SPEED 0
 # define FIELD_OF_VIEW 60
 # ifndef BONUS
-#  define BONUS 0
+#  define BONUS 1
 # endif
 
 enum

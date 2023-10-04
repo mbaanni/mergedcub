@@ -6,11 +6,11 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:57:04 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/10/03 21:56:21 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/10/04 08:17:40 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/Cub3D.h"
+#include "../includes/Cub3D_bonus.h"
 
 float	dist_point(int startx, int starty, float endx, float endy)
 {

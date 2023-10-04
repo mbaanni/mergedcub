@@ -6,11 +6,11 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 14:58:52 by mtaib             #+#    #+#             */
-/*   Updated: 2023/10/04 08:24:52 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/10/04 08:21:18 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/Cub3D.h"
+#include "../includes/Cub3D_bonus.h"
 
 void	ft_square(char **map)
 {

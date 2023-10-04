@@ -6,11 +6,11 @@
 /*   By: mbaanni <mbaanni@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 10:20:15 by mbaanni           #+#    #+#             */
-/*   Updated: 2023/10/04 08:25:25 by mbaanni          ###   ########.fr       */
+/*   Updated: 2023/10/04 08:25:36 by mbaanni          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/Cub3D.h"
+#include "../includes/Cub3D_bonus.h"
 
 void	load_mlx(t_mlx *mlx)
 {
